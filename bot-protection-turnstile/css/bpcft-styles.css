@@ -1,0 +1,30 @@
+.bpcft-widget-ml-n15{
+    margin-left: -15px;
+}
+
+.bpcft-widget-mt-12{
+    margin-top: 12px;
+}
+
+.bpcft-widget-mb-12{
+    margin-bottom: 12px;
+}
+
+.bpcft-place-widget-center{
+    display: flex;
+    justify-content: center;
+}
+
+.bpcft-error-msg {
+    color: #cc0000;
+}
+
+.bpcft-semi-small-widget-size {
+    transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+}
+
+.bpcft-small-widget-size {
+    transform: scale(0.73);
+    -webkit-transform: scale(0.73);
+}

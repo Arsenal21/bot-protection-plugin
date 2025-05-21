@@ -1,0 +1,29 @@
+.bpcft-settings-text-field-cat-3{
+    width: 650px;
+}
+
+.bpcft-settings-text-field-cat-2{
+    width: 400px;
+}
+
+.bpcft-settings-text-field-cat-1{
+    width: 70px;
+}
+
+@media only screen and (max-width: 782px){
+    .bpcft-settings-text-field-cat-3,
+    .bpcft-settings-text-field-cat-2,
+    .bpcft-settings-text-field-cat-1 {
+        width: 100%;
+    }
+}
+
+.bpcft-grey-box {
+    margin: 10px 0px;
+    padding: 15px 10px;
+    background-color: #DDDDDD;
+    border-color: #CCCCCC;
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+}
