@@ -50,8 +50,14 @@ This service is provided by Cloudflare, Inc.:
 
 == Frequently Asked Questions ==
 
+= Is it free to use? =
+Yes, Turnstile CAPTCHA is free to use. You just need a free Cloudflare account to get started. This plugin is also completely free.
+
 = Where do I get a Site Key and Secret Key? =
-Sign in to your Cloudflare account, add a Turnstile application, and copy the credentials provided.
+Sign in to your Cloudflare account, add a Turnstile widget, and copy the credentials provided.
+
+= Is there a setup guide for this plugin? =
+Yes, you can view the plugin's setup guide [here](https://www.tipsandtricks-hq.com/bot-protection-with-turnstile-plugin)
 
 = Does this slow down my site? =
 No. The Turnstile script is tiny and loaded from Cloudflare's global edge network. It adds a negligible footprint.
