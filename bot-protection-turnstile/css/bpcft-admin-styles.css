@@ -18,6 +18,7 @@
     }
 }
 
+/* Wrap directly with this class (not to be used with a paragraph tag) */
 .bpcft-grey-box {
     margin: 10px 0px;
     padding: 15px 10px;
@@ -30,9 +31,31 @@
 
 .bpcft-yellow-box {
     margin: 10px 0px;
+    padding: 10px;
+    background-color: #FFFFE0;
+    border-color: #E6DB55;
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.bpcft-red-box {
+    margin: 10px 0px;
+    padding: 10px;
+    background-color: #FFEBE8;
+    border-color: #CC0000;
+    color: #333333;
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.bpcft-orange-box{
+    margin: 10px 0px;
     padding: 15px 10px;
-    background-color: lightyellow;
-    border-color: lightgoldenrodyellow;
+    color: #3F2502;
+    background-color: #FFF6D5;
+    border-color: #D1B655;
     border-radius: 3px 3px 3px 3px;
     border-style: solid;
     border-width: 1px;

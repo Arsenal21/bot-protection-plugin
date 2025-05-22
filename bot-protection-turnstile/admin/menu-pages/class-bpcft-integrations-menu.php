@@ -78,16 +78,16 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
 
 		$bpcft_enable_on_asp_checkout = $settings->get_value( 'bpcft_enable_on_asp_checkout' );
 
-        $enabled_asp_captcha = $this->get_enabled_asp_captcha();
+        $asp_plugin_captcha_enabled_val = $this->get_asp_plugin_captcha_enabled_val();
 
 		?>
         <div id="bpcft-asp-integration-settings-postbox" class="postbox">
             <h3 class="hndle"><label for="title"><?php esc_attr_e("Turnstile Protection", 'bot-protection-turnstile' ); ?></label></h3>
             <div class="inside">
 
-                <?php if (!empty($enabled_asp_captcha)) { ?>
+                <?php if (!empty($asp_plugin_captcha_enabled_val)) { ?>
                 <div class="bpcft-yellow-box">
-                    <strong><?php esc_attr_e('NOTE:', 'bot-protection-turnstile'); ?></strong> <?php echo esc_attr(sprintf( __("The '%s' is already enabled in the ASP plugin. Make sure to turn that off before using turnstile captcha.", 'bot-protection-turnstile'), $enabled_asp_captcha)); ?>
+                    <strong><?php esc_attr_e('Note: ', 'bot-protection-turnstile'); ?></strong><?php echo esc_attr(sprintf( __("The '%s' option is already enabled in the main Accept Stripe Payments plugin. Please disable it before using the Turnstile CAPTCHA.", 'bot-protection-turnstile'), $asp_plugin_captcha_enabled_val)); ?>
                 </div>
                 <?php } ?>
 
@@ -128,16 +128,16 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
 		$bpcft_enable_on_sdm_download = $settings->get_value( 'bpcft_enable_on_sdm_download' );
 		$bpcft_enable_on_sdm_sf = $settings->get_value( 'bpcft_enable_on_sdm_sf' );
 
-		$enabled_sdm_captcha = $this->get_enabled_sdm_captcha()
+		$sdm_plugin_captcha_enabled_val = $this->get_sdm_plugin_captcha_enabled_val()
 
 		?>
         <div id="bpcft-sdm-integration-settings-postbox" class="postbox">
             <h3 class="hndle"><label for="title"><?php esc_attr_e("Turnstile Protection", 'bot-protection-turnstile' ); ?></label></h3>
             <div class="inside">
 
-	            <?php if (!empty($enabled_sdm_captcha)) { ?>
+	            <?php if (!empty($sdm_plugin_captcha_enabled_val)) { ?>
                     <div class="bpcft-yellow-box">
-                        <strong><?php esc_attr_e('NOTE:', 'bot-protection-turnstile'); ?></strong> <?php echo esc_attr(sprintf( __("The '%s' is already enabled in Simple Download Monitor plugin. Make sure to turn that off before using turnstile captcha.", 'bot-protection-turnstile'), $enabled_sdm_captcha)); ?>
+                        <strong><?php esc_attr_e('Note: ', 'bot-protection-turnstile'); ?></strong><?php echo esc_attr(sprintf( __("The '%s' option is already enabled in the main Simple Download Monitor plugin. Please disable it before using the Turnstile CAPTCHA.", 'bot-protection-turnstile'), $sdm_plugin_captcha_enabled_val)); ?>
                     </div>
 	            <?php } ?>
 
@@ -175,12 +175,12 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
 		<?php
 	}
 
-	public function get_enabled_asp_captcha(){
+	public function get_asp_plugin_captcha_enabled_val(){
 		$settings =  get_option( 'AcceptStripePayments-settings', array());
 		$captcha_type = isset($settings['captcha_type']) && !empty($settings['captcha_type']) ? sanitize_text_field($settings['captcha_type']) : '';
 		$captcha_map = array(
-			'recaptcha' => 'Google reCaptcha',
-			'eprecaptcha' => 'Google Enterprise reCaptcha',
+			'recaptcha' => 'Google reCAPTCHA',
+			'eprecaptcha' => 'Google Enterprise reCAPTCHA',
 			'hcaptcha' => 'hCaptcha',
 		);
 		$captcha_name = array_key_exists($captcha_type, $captcha_map) ? $captcha_map[$captcha_type] : $captcha_type;
@@ -188,7 +188,7 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
 		return $captcha_name;
 	}
 
-	public function get_enabled_sdm_captcha(){
+	public function get_sdm_plugin_captcha_enabled_val(){
 		$settings =  get_option( 'sdm_advanced_options', array());
 
 		$captcha_name = '';

@@ -75,8 +75,10 @@ Absolutely. Toggle off any forms you don't wish to protect.
 4. **Checkout form** inside Accept Stripe Payments.
 
 == Changelog ==
+
 = WIP =
-* Existing enabled captcha warning message added.
+* Added a note for when the captcha is enabled in the settings page of the ASP or SDM plugins.
+* Added new CSS code to the admin CSS file.
 
 = 1.0.2 =
 * Removed the use of inline <script> tags.
