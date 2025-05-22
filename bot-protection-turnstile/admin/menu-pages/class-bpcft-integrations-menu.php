@@ -78,27 +78,36 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
 
 		$bpcft_enable_on_asp_checkout = $settings->get_value( 'bpcft_enable_on_asp_checkout' );
 
+        $enabled_asp_captcha = $this->get_enabled_asp_captcha();
+
 		?>
         <div id="bpcft-asp-integration-settings-postbox" class="postbox">
             <h3 class="hndle"><label for="title"><?php esc_attr_e("Turnstile Protection", 'bot-protection-turnstile' ); ?></label></h3>
             <div class="inside">
+
+                <?php if (!empty($enabled_asp_captcha)) { ?>
+                <div class="bpcft-yellow-box">
+                    <strong><?php esc_attr_e('NOTE:', 'bot-protection-turnstile'); ?></strong> <?php echo esc_attr(sprintf( __("The '%s' is already enabled in the ASP plugin. Make sure to turn that off before using turnstile captcha.", 'bot-protection-turnstile'), $enabled_asp_captcha)); ?>
+                </div>
+                <?php } ?>
+
                 <form action="" method="post">
-            <table class="form-table">
-                <tr>
-                    <th>
-                        <label><?php esc_attr_e( 'Payment/Checkout Form', 'bot-protection-turnstile' ); ?></label>
-                    </th>
-                    <td>
-                        <input type="checkbox"
-                               name="bpcft_enable_on_asp_checkout" <?php echo esc_attr( $bpcft_enable_on_asp_checkout ); ?>
-                               value="1">
-                        <p class="description"><?php esc_attr_e( 'Enable turnstile CAPTCHA on the checkout form of stripe payments plugin.', 'bot-protection-turnstile' ); ?></p>
-                    </td>
-                </tr>
-            </table>
-			<?php wp_nonce_field( 'bpcft_asp_settings_nonce' ) ?>
-			<?php submit_button( __( 'Save Changes', 'bot-protection-turnstile' ), 'primary', 'bpcft_asp_settings_submit' ) ?>
-        </form>
+                    <table class="form-table">
+                        <tr>
+                            <th>
+                                <label><?php esc_attr_e( 'Payment/Checkout Form', 'bot-protection-turnstile' ); ?></label>
+                            </th>
+                            <td>
+                                <input type="checkbox"
+                                       name="bpcft_enable_on_asp_checkout" <?php echo esc_attr( $bpcft_enable_on_asp_checkout ); ?>
+                                       value="1">
+                                <p class="description"><?php esc_attr_e( 'Enable turnstile CAPTCHA on the checkout form of stripe payments plugin.', 'bot-protection-turnstile' ); ?></p>
+                            </td>
+                        </tr>
+                    </table>
+                    <?php wp_nonce_field( 'bpcft_asp_settings_nonce' ) ?>
+                    <?php submit_button( __( 'Save Changes', 'bot-protection-turnstile' ), 'primary', 'bpcft_asp_settings_submit' ) ?>
+                </form>
             </div>
         </div>
 		<?php
@@ -119,10 +128,19 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
 		$bpcft_enable_on_sdm_download = $settings->get_value( 'bpcft_enable_on_sdm_download' );
 		$bpcft_enable_on_sdm_sf = $settings->get_value( 'bpcft_enable_on_sdm_sf' );
 
+		$enabled_sdm_captcha = $this->get_enabled_sdm_captcha()
+
 		?>
         <div id="bpcft-sdm-integration-settings-postbox" class="postbox">
             <h3 class="hndle"><label for="title"><?php esc_attr_e("Turnstile Protection", 'bot-protection-turnstile' ); ?></label></h3>
             <div class="inside">
+
+	            <?php if (!empty($enabled_sdm_captcha)) { ?>
+                    <div class="bpcft-yellow-box">
+                        <strong><?php esc_attr_e('NOTE:', 'bot-protection-turnstile'); ?></strong> <?php echo esc_attr(sprintf( __("The '%s' is already enabled in Simple Download Monitor plugin. Make sure to turn that off before using turnstile captcha.", 'bot-protection-turnstile'), $enabled_sdm_captcha)); ?>
+                    </div>
+	            <?php } ?>
+
                 <form action="" method="post">
                 <table class="form-table">
                     <tr>
@@ -155,5 +173,31 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
             </div>
         </div>
 		<?php
+	}
+
+	public function get_enabled_asp_captcha(){
+		$settings =  get_option( 'AcceptStripePayments-settings', array());
+		$captcha_type = isset($settings['captcha_type']) && !empty($settings['captcha_type']) ? sanitize_text_field($settings['captcha_type']) : '';
+		$captcha_map = array(
+			'recaptcha' => 'Google reCaptcha',
+			'eprecaptcha' => 'Google Enterprise reCaptcha',
+			'hcaptcha' => 'hCaptcha',
+		);
+		$captcha_name = array_key_exists($captcha_type, $captcha_map) ? $captcha_map[$captcha_type] : $captcha_type;
+
+		return $captcha_name;
+	}
+
+	public function get_enabled_sdm_captcha(){
+		$settings =  get_option( 'sdm_advanced_options', array());
+
+		$captcha_name = '';
+		if ( isset($settings['recaptcha_v3_enable']) && !empty($settings['recaptcha_v3_enable']) ){
+			$captcha_name = 'Google reCaptcha v3';
+		} elseif ( isset($settings['recaptcha_enable']) && !empty($settings['recaptcha_enable']) ) {
+			$captcha_name = 'Google reCaptcha v2';
+		}
+
+		return $captcha_name;
 	}
 } //end class
