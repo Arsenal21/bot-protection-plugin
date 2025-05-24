@@ -5,7 +5,7 @@ Donate link: https://www.tipsandtricks-hq.com/development-center
 Requires at least: 6.5
 Requires PHP: 8.0
 Tested up to: 6.8
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 
 A lightweight plugin that protects core WordPress forms and selected third‑party plugins from spam and bot attacks using Cloudflare Turnstile CAPTCHA.
@@ -14,7 +14,7 @@ A lightweight plugin that protects core WordPress forms and selected third‑par
 
 Bot Protection with Turnstile lets you drop-in Cloudflare's privacy-focused, no-CAPTCHA challenge on the most common attack surfaces of a WordPress site:
 
-* **Core forms** – login, registration, password reset, and comments.
+* **Core WordPress forms** – login, registration, password reset, and comments.
 * **Accept Stripe Payments** – protect checkout and payment pop-ups.
 * **Simple Download Monitor** – secure download buttons and squeeze forms.
 
@@ -30,6 +30,15 @@ Turnstile can generate multiple types of non-intrusive challenges to verify user
 * Debug logging feature.
 * Fully translatable and developer-friendly with action/filter hooks.
 * Road-map for upcoming integrations with other popular plugins.
+
+== Getting Started ==
+It's quick and easy to get started with the Bot Protection plugin.
+
+* Generate a Site Key and Secret Key in your Cloudflare account, then enter them in the plugin's settings page.
+* Choose which forms you want to protect with Turnstile and click Save.
+* Turnstile challenges will automatically appear on the selected forms to to block bots and spam.
+
+For more detailed instructions, please see our [setup guide](https://www.tipsandtricks-hq.com/bot-protection-with-turnstile-plugin).
 
 == External Services ==
 This plugin integrates with the Cloudflare Turnstile CAPTCHA service to help protect WordPress forms from spam and automated abuse.
@@ -76,7 +85,7 @@ Absolutely. Toggle off any forms you don't wish to protect.
 
 == Changelog ==
 
-= WIP =
+= 1.0.3 =
 * Added a note for when the captcha is enabled in the settings page of the ASP or SDM plugins.
 * Added new CSS code to the admin CSS file.
 
