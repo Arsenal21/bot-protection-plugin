@@ -78,10 +78,11 @@ Yes – you can choose a theme and widget size in the settings menu.
 Absolutely. Toggle off any forms you don't wish to protect.
 
 == Screenshots ==
-1. **Settings page** – add keys and choose forms.
-2. **Login form** secured by Turnstile.
-3. **Registration form** secured by Turnstile.
-4. **Checkout form** inside Accept Stripe Payments.
+1. WordPress login form example.
+2. WordPress registration form example.
+3. WordPress password reset form example.
+4. WordPress comment form example.
+5. Checkout form of the Accept Stripe Payments plugin.
 
 == Changelog ==
 
