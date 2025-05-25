@@ -6,10 +6,14 @@ class BPCFT_WordPress_Integration {
 
 	public BPCFT_Config $settings;
 
+	public $enable_for_wp_page_only;
+
 	public function __construct() {
 
 		$this->turnstile = BPCFT_Turnstile::get_instance();
 		$this->settings  = BPCFT_Config::get_instance();
+
+		$this->enable_for_wp_page_only = $this->settings->get_value( 'bpcft_enable_for_wp_page_only' );
 
 		$bpcft_enable_on_wp_login = $this->settings->get_value( 'bpcft_enable_on_wp_login' );
 		if ( $bpcft_enable_on_wp_login ) {
@@ -37,14 +41,29 @@ class BPCFT_WordPress_Integration {
 	}
 
 	public function render_wp_login_form_cft() {
+		// Skip if not on login page
+		if ($this->enable_for_wp_page_only && ! BPCFT_Utils::is_login_page()) {
+			return;
+		}
+
 		$this->turnstile->render_implicit( 'bpcft_callback', 'wordpress-login', wp_rand(), 'bpcft-widget-ml-n15 bpcft-widget-mb-12 bpcft-semi-small-widget-size' );
 	}
 
 	public function render_wp_register_form_cft() {
+		// Skip if not on registration page
+		if ($this->enable_for_wp_page_only && ! BPCFT_Utils::is_registration_page()) {
+			return;
+		}
+
 		$this->turnstile->render_implicit('bpcft_callback', 'wordpress-register', wp_rand(), 'bpcft-widget-ml-n15 bpcft-semi-small-widget-size' );
 	}
 
-	public function render_wp_pass_reset_form_cft() {
+	public function render_wp_pass_reset_form_cft(){
+		// Check if not on password reset page.
+		if ($this->enable_for_wp_page_only && ! BPCFT_Utils::is_reset_password_page() ){
+			return;
+		}
+
 		$this->turnstile->render_implicit('bpcft_callback', 'wordpress-reset', wp_rand(), 'bpcft-widget-ml-n15 bpcft-widget-mb-12 bpcft-semi-small-widget-size' );
 	}
 
@@ -78,12 +97,18 @@ class BPCFT_WordPress_Integration {
 		if ( isset( $_POST['edd_login_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash($_POST['edd_login_nonce']) ), 'edd-login-nonce' ) ) {
 			return $user;
 		} // Skip EDD
+		if ( isset( $_REQUEST['bbpress'] ) && !empty($_REQUEST['bbpress']) ){
+			// Skip bbpress cft validation if it is enabled for wp pages only
+			if ($this->enable_for_wp_page_only){
+				return $user;
+			}
+		}
 		if ( is_wp_error( $user ) && isset( $user->errors['empty_username'] ) && isset( $user->errors['empty_password'] ) ) {
 			return $user;
 		} // Skip Errors
 
 		// Skip if not on login page
-		if ( ! BPCFT_Utils::is_login_page()) {
+		if ($this->enable_for_wp_page_only && ! BPCFT_Utils::is_login_page()) {
 			return $user;
 		}
 
@@ -116,7 +141,7 @@ class BPCFT_WordPress_Integration {
 		} // Skip EDD
 
 		// Skip if not on registration page
-		if ( ! BPCFT_Utils::is_registration_page() ) {
+		if ($this->enable_for_wp_page_only && ! BPCFT_Utils::is_registration_page() ) {
 			return $errors;
 		}
 
@@ -142,17 +167,25 @@ class BPCFT_WordPress_Integration {
 		if ( isset( $_POST['woocommerce-lost-password-nonce'] ) ) {
 			return;
 		}
+		if ( isset( $_REQUEST['bbpress'] ) && !empty($_REQUEST['bbpress']) ){
+			// Skip bbpress cft validation if it is enabled for wp pages only
+			if ($this->enable_for_wp_page_only){
+				return;
+			}
+		}
 
 		// Check if password reset page.
-		if ( BPCFT_Utils::is_reset_password_page() ) {
-			$result = $this->turnstile->check_cft_token_response();
+		if ($this->enable_for_wp_page_only && ! BPCFT_Utils::is_reset_password_page() ){
+			return;
+		}
 
-			$success = isset( $result['success'] ) ? boolval( $result['success'] ) : false;
-			$error_message = isset( $result['error_message'] ) ? $result['error_message'] : '';
+		$result = $this->turnstile->check_cft_token_response();
 
-			if ( empty($success) ) {
-				$validation_errors->add( 'wpf_cf_turnstile_error', BPCFT_Utils::failed_message($error_message) );
-			}
+		$success = isset( $result['success'] ) ? boolval( $result['success'] ) : false;
+		$error_message = isset( $result['error_message'] ) ? $result['error_message'] : '';
+
+		if ( empty($success) ) {
+			$validation_errors->add( 'wpf_cf_turnstile_error', BPCFT_Utils::failed_message($error_message) );
 		}
 	}
 
