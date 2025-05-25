@@ -141,7 +141,7 @@ class BPCFT_WordPress_Forms_Menu extends BPCFT_Admin_Menu {
                         <input type="checkbox"
                                name="bpcft_enable_for_wp_page_only" <?php echo esc_attr( $bpcft_enable_for_wp_page_only ); ?>
                                value="1">
-                        <p class="description"><?php esc_attr_e( 'Check this if you want to enable turnstile CAPTCHA for WordPress pages only.', 'bot-protection-turnstile' ); ?></p>
+                        <p class="description"><?php esc_attr_e( 'Check this if you want to enable turnstile for WordPress pages only. Don\'t check this if you want to make turnstile validation for wp forms from other custom pages (bbpress for example).', 'bot-protection-turnstile' ); ?></p>
                     </td>
                 </tr>
             </table>
