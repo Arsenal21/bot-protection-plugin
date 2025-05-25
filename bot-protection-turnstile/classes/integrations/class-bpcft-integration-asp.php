@@ -18,7 +18,14 @@ class BPCFT_ASP_Integration {
 			add_action( 'asp_ng_pp_output_add_scripts', array( $this, 'add_cft_scripts' ) );
 			add_filter( 'asp_ng_pp_output_before_buttons', array( $this, 'render_asp_checkout_form_cft' ), 10, 2 );
 			add_action( 'asp_ng_before_api_pre_submission_validation', array( $this, 'check_asp_checkout' ) );
+
+			// Hide the captcha disabled warning notice of asp core plugin if cft is enabled for asp.
+			add_filter( 'asp_hide_captcha_disabled_warning_notice_in_admin',  array($this, 'asp_hide_captcha_disabled_warning_notice'));
 		}
+	}
+
+	public function asp_hide_captcha_disabled_warning_notice() {
+		return true;
 	}
 
 	public function asp_ng_pp_data_ready( $data, $atts ) {
