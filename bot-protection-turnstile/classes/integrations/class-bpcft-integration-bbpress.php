@@ -16,7 +16,7 @@ class BPCFT_BBpress_Integration {
 	}
 
 	public function filter_bbp_wp_login_action( $login_url, $r, $args ){
-		$login_url = add_query_arg( array( 'bbpress' => 1 ), $login_url );
+		$login_url = add_query_arg( array( 'bbpress-bpcft' => 1 ), $login_url );
 
 		return $login_url;
 	}

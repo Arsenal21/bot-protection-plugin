@@ -86,7 +86,6 @@ Absolutely. Toggle off any forms you don't wish to protect.
 
 == Changelog ==
 = WIP =
-* bbpress login, register and passowrd reset page support added.
 * Hides the captcha disabled warning notice of asp core plugin if cft is enabled for asp.
 
 = 1.0.3 =
