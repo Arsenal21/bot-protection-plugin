@@ -4,7 +4,7 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
 	public $menu_page_slug = BPCFT_INTEGRATIONS_MENU_SLUG;
 
 	/* Specify all the tabs of this menu in the following array */
-	public $menu_tabs = array( 'tab1' => 'Accept Stripe Payments', 'tab2' => 'Simple Download Monitor' );
+	public $menu_tabs = array( 'tab1' => 'Accept Stripe Payments', 'tab2' => 'Simple Download Monitor', 'tab3' => 'WooCommerce' );
 
 	public function __construct() {
 		$this->render_settings_menu_page();
@@ -52,7 +52,10 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
 		//Switch based on the current tab
 		$tab_keys = array_keys( $this->menu_tabs );
 		switch ( $tab ) {
-			case $tab_keys[1]:
+			case $tab_keys[2]:
+                $this->woocommerce_integration_settings_postbox_content();
+				break;
+            case $tab_keys[1]:
                 $this->sdm_integration_settings_postbox_content();
 				break;
 			case $tab_keys[0]:
@@ -200,4 +203,83 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
 
 		return $captcha_name;
 	}
+
+
+	public function woocommerce_integration_settings_postbox_content() {
+
+		$settings = BPCFT_Config::get_instance();
+		if ( isset( $_POST['bpcft_woo_settings_submit'] ) && check_admin_referer( 'bpcft_woo_settings_nonce' ) ) {
+			$settings->set_value( 'bpcft_enable_on_woo_login', ( isset( $_POST['bpcft_enable_on_woo_login'] ) ? 'checked="checked"' : '' ) );
+			$settings->set_value( 'bpcft_enable_on_woo_registration', ( isset( $_POST['bpcft_enable_on_woo_registration'] ) ? 'checked="checked"' : '' ) );
+			$settings->set_value( 'bpcft_enable_on_woo_pass_reset', ( isset( $_POST['bpcft_enable_on_woo_pass_reset'] ) ? 'checked="checked"' : '' ) );
+			$settings->set_value( 'bpcft_enable_on_woo_checkout', ( isset( $_POST['bpcft_enable_on_woo_checkout'] ) ? 'checked="checked"' : '' ) );
+
+			$settings->save_config();
+
+			echo '<div class="notice notice-success"><p>' . esc_attr__( 'Settings saved.', 'bot-protection-turnstile' ) . '</p></div>';
+		}
+
+		$bpcft_enable_on_woo_login = $settings->get_value( 'bpcft_enable_on_woo_login' );
+		$bpcft_enable_on_woo_registration = $settings->get_value( 'bpcft_enable_on_woo_registration' );
+		$bpcft_enable_on_woo_pass_reset = $settings->get_value( 'bpcft_enable_on_woo_pass_reset' );
+		$bpcft_enable_on_woo_checkout = $settings->get_value( 'bpcft_enable_on_woo_checkout' );
+		?>
+        <div id="bpcft-asp-integration-settings-postbox" class="postbox">
+            <h3 class="hndle"><label for="title"><?php esc_attr_e("Turnstile Protection", 'bot-protection-turnstile' ); ?></label></h3>
+            <div class="inside">
+                <form action="" method="post">
+                    <table class="form-table">
+                        <tr>
+                            <th>
+                                <label><?php esc_attr_e( 'Woocommerce Login Form', 'bot-protection-turnstile' ); ?></label>
+                            </th>
+                            <td>
+                                <input type="checkbox"
+                                       name="bpcft_enable_on_woo_login" <?php echo esc_attr( $bpcft_enable_on_woo_login ); ?>
+                                       value="1">
+                                <p class="description"><?php esc_attr_e( 'Enable turnstile CAPTCHA on the login form of woocommerce plugin.', 'bot-protection-turnstile' ); ?></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label><?php esc_attr_e( 'Woocommerce Register Form', 'bot-protection-turnstile' ); ?></label>
+                            </th>
+                            <td>
+                                <input type="checkbox"
+                                       name="bpcft_enable_on_woo_registration" <?php echo esc_attr( $bpcft_enable_on_woo_registration ); ?>
+                                       value="1">
+                                <p class="description"><?php esc_attr_e( 'Enable turnstile CAPTCHA on the registration form of woocommerce plugin.', 'bot-protection-turnstile' ); ?></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label><?php esc_attr_e( 'Woocommerce Password Reset Form', 'bot-protection-turnstile' ); ?></label>
+                            </th>
+                            <td>
+                                <input type="checkbox"
+                                       name="bpcft_enable_on_woo_pass_reset" <?php echo esc_attr( $bpcft_enable_on_woo_pass_reset ); ?>
+                                       value="1">
+                                <p class="description"><?php esc_attr_e( 'Enable turnstile CAPTCHA on the password reset form of woocommerce plugin.', 'bot-protection-turnstile' ); ?></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label><?php esc_attr_e( 'Woocommerce Checkout Form', 'bot-protection-turnstile' ); ?></label>
+                            </th>
+                            <td>
+                                <input type="checkbox"
+                                       name="bpcft_enable_on_woo_checkout" <?php echo esc_attr( $bpcft_enable_on_woo_checkout ); ?>
+                                       value="1">
+                                <p class="description"><?php esc_attr_e( 'Enable turnstile CAPTCHA on the checkout of woocommerce plugin.', 'bot-protection-turnstile' ); ?></p>
+                            </td>
+                        </tr>
+                    </table>
+					<?php wp_nonce_field( 'bpcft_woo_settings_nonce' ) ?>
+					<?php submit_button( __( 'Save Changes', 'bot-protection-turnstile' ), 'primary', 'bpcft_woo_settings_submit' ) ?>
+                </form>
+            </div>
+        </div>
+		<?php
+	}
+
 } //end class
