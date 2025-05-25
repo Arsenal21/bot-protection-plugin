@@ -85,6 +85,8 @@ Absolutely. Toggle off any forms you don't wish to protect.
 5. Checkout form of the Accept Stripe Payments plugin.
 
 == Changelog ==
+= WIP =
+* bbpress login, register and passowrd reset page support added.
 
 = 1.0.3 =
 * Added a note for when the captcha is enabled in the settings page of the ASP or SDM plugins.

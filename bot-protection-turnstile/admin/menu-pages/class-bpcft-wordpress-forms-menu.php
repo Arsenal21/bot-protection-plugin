@@ -70,6 +70,7 @@ class BPCFT_WordPress_Forms_Menu extends BPCFT_Admin_Menu {
 			$settings->set_value( 'bpcft_enable_on_wp_register', ( isset( $_POST['bpcft_enable_on_wp_register'] ) ? 'checked="checked"' : '' ) );
 			$settings->set_value( 'bpcft_enable_on_wp_reset_password', ( isset( $_POST['bpcft_enable_on_wp_reset_password'] ) ? 'checked="checked"' : '' ) );
 			$settings->set_value( 'bpcft_enable_on_wp_comment', ( isset( $_POST['bpcft_enable_on_wp_comment'] ) ? 'checked="checked"' : '' ) );
+			$settings->set_value( 'bpcft_enable_for_wp_page_only', ( isset( $_POST['bpcft_enable_for_wp_page_only'] ) ? 'checked="checked"' : '' ) );
 
 			$settings->save_config();
 
@@ -80,6 +81,7 @@ class BPCFT_WordPress_Forms_Menu extends BPCFT_Admin_Menu {
 		$bpcft_enable_on_wp_register       = $settings->get_value( 'bpcft_enable_on_wp_register' );
 		$bpcft_enable_on_wp_reset_password = $settings->get_value( 'bpcft_enable_on_wp_reset_password' );
 		$bpcft_enable_on_wp_comment        = $settings->get_value( 'bpcft_enable_on_wp_comment' );
+		$bpcft_enable_for_wp_page_only        = $settings->get_value( 'bpcft_enable_for_wp_page_only' );
 
 		?>
         <div id="bpcft-wp-settings-postbox" class="postbox">
@@ -129,6 +131,17 @@ class BPCFT_WordPress_Forms_Menu extends BPCFT_Admin_Menu {
                                name="bpcft_enable_on_wp_comment" <?php echo esc_attr( $bpcft_enable_on_wp_comment ); ?>
                                value="1">
                         <p class="description"><?php esc_attr_e( 'Enable turnstile CAPTCHA on the comment form of WordPress.', 'bot-protection-turnstile' ); ?></p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label><?php esc_attr_e( 'Enable for WordPress Pages Only', 'bot-protection-turnstile' ); ?></label>
+                    </th>
+                    <td>
+                        <input type="checkbox"
+                               name="bpcft_enable_for_wp_page_only" <?php echo esc_attr( $bpcft_enable_for_wp_page_only ); ?>
+                               value="1">
+                        <p class="description"><?php esc_attr_e( 'Check this if you want to enable turnstile CAPTCHA for WordPress pages only.', 'bot-protection-turnstile' ); ?></p>
                     </td>
                 </tr>
             </table>
