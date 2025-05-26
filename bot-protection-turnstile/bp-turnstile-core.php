@@ -41,6 +41,7 @@ class BPCFT_Main {
 		define( 'BPCFT_SETTINGS_MENU_SLUG', 'bpcft-settings' );
 		define( 'BPCFT_WORDPRESS_FORMS_MENU_SLUG', 'bpcft-wp-forms' );
 		define( 'BPCFT_INTEGRATIONS_MENU_SLUG', 'bpcft-integrations' );
+		define( 'BPCFT_ECOMMERCE_MENU_SLUG', 'bpcft-ecommerce' );
 		//global $wpdb;
 		//define('DB_TABLE_TBL', $wpdb->prefix . "define_name_for_tbl");
 	}
