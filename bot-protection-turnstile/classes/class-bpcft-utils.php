@@ -49,13 +49,13 @@ class BPCFT_Utils {
 			case 'invalid-input-secret':
 				return esc_html__( 'The secret parameter was invalid or did not exist.','bot-protection-turnstile' );
 			case 'missing-input-response':
-				return esc_html__( 'The response parameter was not passed.','bot-protection-turnstile' );
+				return esc_html__( 'The cloudflare turnstile response parameter was not passed.','bot-protection-turnstile' );
 			case 'invalid-input-response':
-				return esc_html__( 'The response parameter is invalid or has expired.','bot-protection-turnstile' );
+				return esc_html__( 'The cloudflare turnstile response parameter is invalid or has expired.','bot-protection-turnstile' );
 			case 'bad-request':
 				return esc_html__( 'The request was rejected because it was malformed.','bot-protection-turnstile' );
 			case 'timeout-or-duplicate':
-				return esc_html__( 'The response parameter has already been validated before.','bot-protection-turnstile' );
+				return esc_html__( 'The cloudflare turnstile response parameter has already been validated before.','bot-protection-turnstile' );
 			case 'internal-error':
 				return esc_html__( 'An internal error happened while validating the response. The request can be retried.','bot-protection-turnstile' );
 			default:
