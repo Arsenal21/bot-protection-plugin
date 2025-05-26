@@ -87,6 +87,7 @@ Absolutely. Toggle off any forms you don't wish to protect.
 == Changelog ==
 = WIP =
 * Hides the captcha disabled warning notice of asp core plugin if cft is enabled for asp.
+* WooCommerce integration has added.
 
 = 1.0.3 =
 * Added a note for when the captcha is enabled in the settings page of the ASP or SDM plugins.

@@ -84,6 +84,9 @@ class BPCFT_WordPress_Integration {
 		if ( ! isset( $user->ID ) ) {
 			return $user;
 		}
+		if ( isset( $_POST['woocommerce-login-nonce'] ) ) {
+			return $user;
+		} // Skip woo
 		if ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) {
 			return $user;
 		} // Skip XMLRPC
@@ -106,7 +109,7 @@ class BPCFT_WordPress_Integration {
 		$error_message = isset( $result['error_message'] ) ? $result['error_message'] : '';
 
 		if ( empty($success) ) {
-			 $user = new WP_Error( 'wpf_cf_turnstile_error', BPCFT_Utils::failed_message($error_message) );
+			 $user = new WP_Error( 'bpcft_turnstile_error', BPCFT_Utils::failed_message($error_message) );
 		}
 
 		return $user;
@@ -140,7 +143,7 @@ class BPCFT_WordPress_Integration {
 		$error_message = isset( $result['error_message'] ) ? $result['error_message'] : '';
 
 		if ( empty($success) ) {
-			$errors->add( 'wpf_cf_turnstile_error', BPCFT_Utils::failed_message($error_message) );
+			$errors->add( 'bpcft_turnstile_error', BPCFT_Utils::failed_message($error_message) );
 		}
 
 		return $errors;
@@ -163,7 +166,7 @@ class BPCFT_WordPress_Integration {
 		$error_message = isset( $result['error_message'] ) ? $result['error_message'] : '';
 
 		if ( empty($success) ) {
-			$validation_errors->add( 'wpf_cf_turnstile_error', BPCFT_Utils::failed_message($error_message) );
+			$validation_errors->add( 'bpcft_turnstile_error', BPCFT_Utils::failed_message($error_message) );
 		}
 	}
 
