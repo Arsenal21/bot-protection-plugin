@@ -36,7 +36,7 @@ class BPCFT_Ecommerce_Menu extends BPCFT_Admin_Menu {
 	 */
 	public function render_settings_menu_page() {
 		echo '<div class="wrap">';
-		echo '<h1>' . esc_attr__( 'Plugin Integration Settings', 'bot-protection-turnstile' ) . '</h1>';
+		echo '<h1>' . esc_attr__( 'eCommerce Integration Settings', 'bot-protection-turnstile' ) . '</h1>';
 		//Get the current tab
 		$tab = $this->get_current_tab();
 
