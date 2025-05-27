@@ -3,9 +3,9 @@ Contributors: mra13, Tips and Tricks HQ
 Tags: turnstile, captcha, cloudflare, spam-protection, security
 Donate link: https://www.tipsandtricks-hq.com/development-center
 Requires at least: 6.5
-Requires PHP: 8.0
+Requires PHP: 7.4
 Tested up to: 6.8
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 
 A lightweight plugin that protects core WordPress forms and selected third‑party plugins from spam and bot attacks using Cloudflare Turnstile CAPTCHA.
@@ -14,9 +14,11 @@ A lightweight plugin that protects core WordPress forms and selected third‑par
 
 Bot Protection with Turnstile lets you drop-in Cloudflare's privacy-focused, no-CAPTCHA challenge on the most common attack surfaces of a WordPress site:
 
-* **Core WordPress forms** – login, registration, password reset, and comments.
-* **Accept Stripe Payments** – protect checkout and payment pop-ups.
-* **Simple Download Monitor** – secure download buttons and squeeze forms.
+* **Core WordPress forms** – Login, registration, password reset, and comment forms.
+* **WooCommerce** – Protect checkout, login, registration, and password reset forms.
+* **bbPress** – Secure forum registration, login, and topic creation forms.
+* **Accept Stripe Payments** – Protect checkout and payment pop-up forms.
+* **Simple Download Monitor** – Secure download buttons and squeeze forms.
 
 Just add your Turnstile *Site Key* and *Secret Key*, choose the forms you want to protect, and you’re done. No more subjecting your users to image puzzles or accessibility headaches.
 
@@ -85,11 +87,12 @@ Absolutely. Toggle off any forms you don't wish to protect.
 5. Checkout form of the Accept Stripe Payments plugin.
 
 == Changelog ==
-= WIP =
-* Hides the captcha disabled warning notice of asp core plugin if cft is enabled for asp.
-* WooCommerce integration has added.
-* Plugin inactive notice added in the integration menus.
-* bbPress integration has added.
+
+= 1.0.4 =
+* Added integration for WooCommerce.
+* Displays a notice in the settings menu if a supported plugin is inactive.
+* Added integration for the bbPress forum plugin.
+* Suppresses the Stripe plugin's CAPTCHA-disabled warning when Turnstile is enabled.
 
 = 1.0.3 =
 * Added a note for when the captcha is enabled in the settings page of the ASP or SDM plugins.
