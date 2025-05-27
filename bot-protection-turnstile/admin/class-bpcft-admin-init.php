@@ -48,7 +48,7 @@ class BPCFT_Admin_Init {
 		add_submenu_page( BPCFT_MAIN_MENU_SLUG, __( 'Settings', 'bot-protection-turnstile' ), __( 'Settings', 'bot-protection-turnstile' ), BPCFT_MANAGEMENT_PERMISSION, BPCFT_MAIN_MENU_SLUG, array( $this, 'handle_settings_menu_rendering') );
 		add_submenu_page( BPCFT_MAIN_MENU_SLUG, __( 'WordPress Forms', 'bot-protection-turnstile' ), __( 'WordPress Forms', 'bot-protection-turnstile' ), BPCFT_MANAGEMENT_PERMISSION, BPCFT_WORDPRESS_FORMS_MENU_SLUG, array( $this, 'handle_wordpress_menu_rendering' ) );
 		add_submenu_page( BPCFT_MAIN_MENU_SLUG, __( 'eCommerce Integrations', 'bot-protection-turnstile' ), __( 'eCommerce Integrations', 'bot-protection-turnstile' ), BPCFT_MANAGEMENT_PERMISSION, BPCFT_ECOMMERCE_MENU_SLUG, array( $this, 'handle_ecommerce_menu_rendering' ) );
-		add_submenu_page( BPCFT_MAIN_MENU_SLUG, __( 'Forums Integrations', 'bot-protection-turnstile' ), __( 'Forums Integrations', 'bot-protection-turnstile' ), BPCFT_MANAGEMENT_PERMISSION, BPCFT_FORUMS_MENU_SLUG, array( $this, 'handle_forums_menu_rendering' ) );
+		add_submenu_page( BPCFT_MAIN_MENU_SLUG, __( 'Forum Integrations', 'bot-protection-turnstile' ), __( 'Forum Integrations', 'bot-protection-turnstile' ), BPCFT_MANAGEMENT_PERMISSION, BPCFT_FORUMS_MENU_SLUG, array( $this, 'handle_forums_menu_rendering' ) );
 		add_submenu_page( BPCFT_MAIN_MENU_SLUG, __( 'Plugin Integrations', 'bot-protection-turnstile' ), __( 'Plugin Integrations', 'bot-protection-turnstile' ), BPCFT_MANAGEMENT_PERMISSION, BPCFT_INTEGRATIONS_MENU_SLUG, array( $this, 'handle_integrations_menu_rendering') );
 
 		//Trigger after menu creation action hook.
