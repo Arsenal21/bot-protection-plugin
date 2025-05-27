@@ -83,6 +83,12 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
             <h3 class="hndle"><label for="title"><?php esc_attr_e("Turnstile Protection", 'bot-protection-turnstile' ); ?></label></h3>
             <div class="inside">
 
+	            <?php if (! BPCFT_Utils::check_if_plugin_active( 'simple-download-monitor/main.php' )) { ?>
+                    <div class="bpcft-grey-box">
+			            <?php esc_html_e( 'Simple Download Monitor is not active on your site. Please activate it to use this integration.', 'bot-protection-turnstile' )?>
+                    </div>
+	            <?php } ?>
+
 	            <?php if (!empty($sdm_plugin_captcha_enabled_val)) { ?>
                     <div class="bpcft-yellow-box">
                         <strong><?php esc_attr_e('Note: ', 'bot-protection-turnstile'); ?></strong><?php echo esc_attr(sprintf( __("The '%s' option is already enabled in the main Simple Download Monitor plugin. Please disable it before using the Turnstile CAPTCHA.", 'bot-protection-turnstile'), $sdm_plugin_captcha_enabled_val)); ?>

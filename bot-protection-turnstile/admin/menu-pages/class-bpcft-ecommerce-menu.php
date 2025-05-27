@@ -85,6 +85,12 @@ class BPCFT_Ecommerce_Menu extends BPCFT_Admin_Menu {
             <h3 class="hndle"><label for="title"><?php esc_attr_e("Turnstile Protection", 'bot-protection-turnstile' ); ?></label></h3>
             <div class="inside">
 
+	            <?php if (! BPCFT_Utils::check_if_plugin_active( 'stripe-payments/accept-stripe-payments.php' )) { ?>
+                    <div class="bpcft-grey-box">
+			            <?php esc_html_e( 'Accept Stripe Payments is not active on your site. Please activate it to use this integration.', 'bot-protection-turnstile' )?>
+                    </div>
+	            <?php } ?>
+
 				<?php if (!empty($asp_plugin_captcha_enabled_val)) { ?>
                     <div class="bpcft-yellow-box">
                         <strong><?php esc_attr_e('Note: ', 'bot-protection-turnstile'); ?></strong><?php echo esc_attr(sprintf( __("The '%s' option is already enabled in the main Accept Stripe Payments plugin. Please disable it before using the Turnstile CAPTCHA.", 'bot-protection-turnstile'), $asp_plugin_captcha_enabled_val)); ?>
@@ -148,6 +154,13 @@ class BPCFT_Ecommerce_Menu extends BPCFT_Admin_Menu {
         <div id="bpcft-asp-integration-settings-postbox" class="postbox">
             <h3 class="hndle"><label for="title"><?php esc_attr_e("Turnstile Protection", 'bot-protection-turnstile' ); ?></label></h3>
             <div class="inside">
+
+                <?php if (! BPCFT_Utils::check_if_plugin_active( 'woocommerce/woocommerce.php' )) { ?>
+                    <div class="bpcft-grey-box">
+                        <?php esc_html_e( 'WooCommerce is not active on your site. Please activate it to use this integration.', 'bot-protection-turnstile' )?>
+                    </div>
+                <?php } ?>
+
                 <form action="" method="post">
                     <table class="form-table">
                         <tr>
