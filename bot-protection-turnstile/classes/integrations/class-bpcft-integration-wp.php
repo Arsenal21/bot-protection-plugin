@@ -150,6 +150,11 @@ class BPCFT_WordPress_Integration {
 	}
 
 	public function check_wp_reset_password($validation_errors){
+		// Check if cft validation already executed.
+		if (is_wp_error($validation_errors) && in_array('bpcft_turnstile_error', $validation_errors->get_error_codes() )){
+			return;
+		}
+
 		// Skip Woo
 		if ( isset( $_POST['woocommerce-lost-password-nonce'] ) ) {
 			return;
