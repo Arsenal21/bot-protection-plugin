@@ -52,7 +52,10 @@ class BPCFT_BBpress_Integration {
 	}
 
 	public function render_bbp_login_form_cft() {
-		if (( function_exists('is_bbpress') && is_bbpress()) || (is_page() && has_shortcode(get_post()->post_content, 'bbp-login'))) {
+		if ( is_page() && has_shortcode( get_post()->post_content, 'bbp-login' ) ) {
+			$this->turnstile->render_implicit( 'bpcft_callback', 'bbp-login', wp_rand(), 'bpcft-widget-mt-12' );
+		} else if ( function_exists('is_bbpress') && is_bbpress() && !is_page() ) {
+			// For bbpress topic page login form
 			$this->turnstile->render_implicit( 'bpcft_callback', 'bbp-login', wp_rand(), 'bpcft-widget-mt-12' );
 		}
 	}
