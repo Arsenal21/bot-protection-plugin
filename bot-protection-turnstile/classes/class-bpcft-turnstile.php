@@ -46,6 +46,8 @@ class BPCFT_Turnstile {
     public function get_implicit_widget( $callback = '', $form_name = '', $unique_id = '', $class = '' ){
 	    $site_key    = $this->settings->get_value( 'bpcft_site_key' );
 
+	    $unique_id = !empty($unique_id) ? $unique_id : wp_rand();
+
         $widget_settings = $this->widget_settings();
 	    $theme       = isset($widget_settings['theme']) ? $widget_settings['theme'] : 'auto';
 	    $language    = isset($widget_settings['language']) ? $widget_settings['language'] : 'auto';
