@@ -87,6 +87,8 @@ Absolutely. Toggle off any forms you don't wish to protect.
 5. Checkout form of the Accept Stripe Payments plugin.
 
 == Changelog ==
+= WIP =
+* Contact Form 7 plugin integration added.
 
 = 1.0.4 =
 * Added integration for WooCommerce.

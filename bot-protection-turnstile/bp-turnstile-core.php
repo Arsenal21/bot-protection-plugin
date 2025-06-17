@@ -42,6 +42,7 @@ class BPCFT_Main {
 		define( 'BPCFT_WORDPRESS_FORMS_MENU_SLUG', 'bpcft-wp-forms' );
 		define( 'BPCFT_INTEGRATIONS_MENU_SLUG', 'bpcft-integrations' );
 		define( 'BPCFT_FORUMS_MENU_SLUG', 'bpcft-forums' );
+		define( 'BPCFT_FORM_PLUGINS_INTEGRATIONS_MENU_SLUG', 'bpcft-form-plugins' );
 		define( 'BPCFT_ECOMMERCE_MENU_SLUG', 'bpcft-ecommerce' );
 		//global $wpdb;
 		//define('DB_TABLE_TBL', $wpdb->prefix . "define_name_for_tbl");
@@ -77,6 +78,7 @@ class BPCFT_Main {
 		include_once( BPCFT_PATH . '/classes/integrations/class-bpcft-integration-sdm.php' );
 		include_once( BPCFT_PATH . '/classes/integrations/class-bpcft-integration-bbpress.php' );
 		include_once( BPCFT_PATH . '/classes/integrations/class-bpcft-integration-woocommerce.php' );
+		include_once( BPCFT_PATH . '/classes/integrations/class-bpcft-integration-cf7.php' );
 		if ( is_admin() ) {
 			//Load admin side only files
 			include_once( BPCFT_PATH . '/admin/class-bpcft-admin-init.php' );
@@ -105,6 +107,7 @@ class BPCFT_Main {
 		new BPCFT_SDM_Integration();
 		new BPCFT_BBpress_Integration();
 		new BPCFT_WooCommerce_Integration();
+		new BPCFT_CF7_Integration();
 	}
 
 	public function load_language() {
