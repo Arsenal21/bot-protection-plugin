@@ -4,7 +4,7 @@ class BPCFT_Ecommerce_Menu extends BPCFT_Admin_Menu {
 	public $menu_page_slug = BPCFT_ECOMMERCE_MENU_SLUG;
 
 	/* Specify all the tabs of this menu in the following array */
-	public $menu_tabs = array( 'tab1' => 'Accept Stripe Payments', 'tab2' => 'WooCommerce', 'tab3' => 'Simple WP Shopping Cart' );
+	public $menu_tabs = array( 'tab1' => 'Accept Stripe Payments', 'tab2' => 'WooCommerce', 'tab3' => 'Simple Shopping Cart' );
 
 	public function __construct() {
 		$this->render_settings_menu_page();
@@ -237,7 +237,7 @@ class BPCFT_Ecommerce_Menu extends BPCFT_Admin_Menu {
 
 				<?php if (! BPCFT_Utils::check_if_plugin_active( 'wordpress-paypal-shopping-cart/wp_shopping_cart.php' )) { ?>
                     <div class="bpcft-grey-box">
-						<?php esc_html_e( 'Simple WP Shopping Cart is not active on your site. Please activate it to use this integration.', 'bot-protection-turnstile' )?>
+						<?php esc_html_e( 'Simple Shopping Cart is not active on your site. Please activate it to use this integration.', 'bot-protection-turnstile' )?>
                     </div>
 				<?php } ?>
 
