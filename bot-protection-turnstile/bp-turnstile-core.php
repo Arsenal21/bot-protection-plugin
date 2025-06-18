@@ -79,6 +79,7 @@ class BPCFT_Main {
 		include_once( BPCFT_PATH . '/classes/integrations/class-bpcft-integration-bbpress.php' );
 		include_once( BPCFT_PATH . '/classes/integrations/class-bpcft-integration-woocommerce.php' );
 		include_once( BPCFT_PATH . '/classes/integrations/class-bpcft-integration-cf7.php' );
+		include_once( BPCFT_PATH . '/classes/integrations/class-bpcft-integration-wpsc.php' );
 		if ( is_admin() ) {
 			//Load admin side only files
 			include_once( BPCFT_PATH . '/admin/class-bpcft-admin-init.php' );
@@ -108,6 +109,7 @@ class BPCFT_Main {
 		new BPCFT_BBpress_Integration();
 		new BPCFT_WooCommerce_Integration();
 		new BPCFT_CF7_Integration();
+		new BPCFT_WPSC_Integration();
 	}
 
 	public function load_language() {
