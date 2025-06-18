@@ -4,7 +4,7 @@ class BPCFT_Ecommerce_Menu extends BPCFT_Admin_Menu {
 	public $menu_page_slug = BPCFT_ECOMMERCE_MENU_SLUG;
 
 	/* Specify all the tabs of this menu in the following array */
-	public $menu_tabs = array( 'tab1' => 'Accept Stripe Payments', 'tab2' => 'WooCommerce' );
+	public $menu_tabs = array( 'tab1' => 'Accept Stripe Payments', 'tab2' => 'WooCommerce', 'tab3' => 'Simple WP Shopping Cart' );
 
 	public function __construct() {
 		$this->render_settings_menu_page();
@@ -52,7 +52,10 @@ class BPCFT_Ecommerce_Menu extends BPCFT_Admin_Menu {
 		//Switch based on the current tab
 		$tab_keys = array_keys( $this->menu_tabs );
 		switch ( $tab ) {
-			case $tab_keys[1]:
+			case $tab_keys[2]:
+				$this->wpsc_integration_settings_postbox_content();
+				break;
+            case $tab_keys[1]:
 				$this->woocommerce_integration_settings_postbox_content();
 				break;
 			case $tab_keys[0]:
@@ -216,4 +219,47 @@ class BPCFT_Ecommerce_Menu extends BPCFT_Admin_Menu {
 		<?php
 	}
 
+	public function wpsc_integration_settings_postbox_content() {
+		$settings = BPCFT_Config::get_instance();
+		if ( isset( $_POST['bpcft_wpsc_settings_submit'] ) && check_admin_referer( 'bpcft_wpsc_settings_nonce' ) ) {
+			$settings->set_value( 'bpcft_enable_on_wpsc_manual_checkout', ( isset( $_POST['bpcft_enable_on_wpsc_manual_checkout'] ) ? 'checked="checked"' : '' ) );
+
+			$settings->save_config();
+
+			echo '<div class="notice notice-success"><p>' . esc_attr__( 'Settings saved.', 'bot-protection-turnstile' ) . '</p></div>';
+		}
+
+		$bpcft_enable_on_wpsc_manual_checkout = $settings->get_value( 'bpcft_enable_on_wpsc_manual_checkout' );
+		?>
+        <div id="bpcft-asp-integration-settings-postbox" class="postbox">
+            <h3 class="hndle"><label for="title"><?php esc_attr_e("Turnstile Protection", 'bot-protection-turnstile' ); ?></label></h3>
+            <div class="inside">
+
+				<?php if (! BPCFT_Utils::check_if_plugin_active( 'wordpress-paypal-shopping-cart/wp_shopping_cart.php' )) { ?>
+                    <div class="bpcft-grey-box">
+						<?php esc_html_e( 'Simple WP Shopping Cart is not active on your site. Please activate it to use this integration.', 'bot-protection-turnstile' )?>
+                    </div>
+				<?php } ?>
+
+                <form action="" method="post">
+                    <table class="form-table">
+                        <tr>
+                            <th>
+                                <label><?php esc_attr_e( 'Manual Checkout Form', 'bot-protection-turnstile' ); ?></label>
+                            </th>
+                            <td>
+                                <input type="checkbox"
+                                       name="bpcft_enable_on_wpsc_manual_checkout" <?php echo esc_attr( $bpcft_enable_on_wpsc_manual_checkout ); ?>
+                                       value="1">
+                                <p class="description"><?php esc_attr_e( 'Enable turnstile CAPTCHA on the manual checkout form of simple shopping cart plugin.', 'bot-protection-turnstile' ); ?></p>
+                            </td>
+                        </tr>
+                    </table>
+					<?php wp_nonce_field( 'bpcft_wpsc_settings_nonce' ) ?>
+					<?php submit_button( __( 'Save Changes', 'bot-protection-turnstile' ), 'primary', 'bpcft_wpsc_settings_submit' ) ?>
+                </form>
+            </div>
+        </div>
+		<?php
+	}
 } //end class
