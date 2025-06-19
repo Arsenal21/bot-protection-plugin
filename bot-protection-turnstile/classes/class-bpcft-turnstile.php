@@ -24,6 +24,13 @@ class BPCFT_Turnstile {
 	    return 'https://challenges.cloudflare.com/turnstile/v0/api.js';
     }
 
+    public static function get_cft_cdn_url_explicit() {
+        return add_query_arg( array(
+	        'render' => 'explicit',
+            'onload' => apply_filters('bpcft_onload_cft_callback', 'bpcft_onload_cft_cdn')
+        ), self::get_cft_cdn_url());
+    }
+
     public static function get_bpcft_script_url() {
 	    return BPCFT_URL . '/js/bpcft-common-script.js';
     }
@@ -39,11 +46,17 @@ class BPCFT_Turnstile {
 			'in_footer' => true,
 		) );
 
+		wp_register_script( 'cloudflare-turnstile-script-explicit', self::get_cft_cdn_url_explicit(), array(), BPCFT_VERSION, true );
+		wp_register_script( 'bpcft-common-script-explicit', self::get_bpcft_script_url() , array( 'cloudflare-turnstile-script-explicit' ), BPCFT_VERSION, array(
+			'strategy'  => 'defer',
+			'in_footer' => true,
+		) );
+
         // Public style
 		wp_register_style( 'bpcft-styles', self::get_bpcft_style_url() , array(), BPCFT_VERSION );
 	}
 
-    public function get_implicit_widget( $callback = '', $form_name = '', $unique_id = '', $class = '' ){
+    public function get_widget_content( $callback = '', $form_name = '', $unique_id = '', $class = '' ){
 	    $site_key    = $this->settings->get_value( 'bpcft_site_key' );
 
 	    $unique_id = !empty($unique_id) ? $unique_id : wp_rand();
@@ -78,25 +91,43 @@ class BPCFT_Turnstile {
     }
 
 	/**
-	 * Create turnstile field template.
+	 * Renders cloudflare turnstile widget.
+	 */
+    private function render($callback = '', $form_name = '', $unique_id = '', $class = '' , $widget_id = ''){
+	    $callback = sanitize_text_field($callback);
+	    $form_name = sanitize_text_field($form_name);
+	    $unique_id = sanitize_text_field($unique_id);
+	    $class = sanitize_text_field($class);
+
+	    do_action( "bpcft_before_cft_widget",  $unique_id );
+
+	    $widget = $this->get_widget_content( $callback, $form_name, $unique_id, $class );
+
+	    echo wp_kses_post($widget);
+
+	    do_action( "bpcft_after_cft_widget", $unique_id, $widget_id );
+    }
+
+
+	/**
+     * Renders cloudflare turnstile widget with implicit script
 	 */
 	public function render_implicit( $callback = '', $form_name = '', $unique_id = '', $class = '' , $widget_id = '') {
-		wp_enqueue_script( 'bpcft-common-script' );
-		wp_enqueue_style( 'bpcft-styles' );
+        wp_enqueue_script( 'bpcft-common-script' );
+	    wp_enqueue_style( 'bpcft-styles' );
 
-        $callback = sanitize_text_field($callback);
-        $form_name = sanitize_text_field($form_name);
-        $unique_id = sanitize_text_field($unique_id);
-        $class = sanitize_text_field($class);
-
-        do_action( "bpcft_before_cft_widget",  $unique_id );
-
-        $widget = $this->get_implicit_widget( $callback, $form_name, $unique_id, $class );
-
-        echo wp_kses_post($widget);
-
-        do_action( "bpcft_after_cft_widget", $unique_id, $widget_id );
+        $this->render($callback, $form_name, $unique_id, $class, $widget_id);
 	}
+
+	/**
+     * Renders cloudflare turnstile widget with explicit script
+	 */
+    public function render_explicit($callback = '', $form_name = '', $unique_id = '', $class = '' , $widget_id = '') {
+        wp_enqueue_script( 'bpcft-common-script-explicit' );
+	    wp_enqueue_style( 'bpcft-styles' );
+
+	    $this->render($callback, $form_name, $unique_id, $class, $widget_id);
+    }
 
 	/**
 	 * Checks Turnstile Captcha POST is Valid

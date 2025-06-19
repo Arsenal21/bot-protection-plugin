@@ -90,6 +90,7 @@ Absolutely. Toggle off any forms you don't wish to protect.
 = WIP =
 * Contact Form 7 plugin integration added.
 * Simple Shopping Cart plugin integration added.
+* WP Express Checkout plugin integration added.
 
 = 1.0.4 =
 * Added integration for WooCommerce.

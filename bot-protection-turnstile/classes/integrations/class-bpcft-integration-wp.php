@@ -70,7 +70,7 @@ class BPCFT_WordPress_Integration {
 		$submit_before = '';
 		$submit_after  = '';
 
-		$submit_before .= $this->turnstile->get_implicit_widget( 'bpcft_callback', 'wordpress-comment', 'c-' .$unique_id );
+		$submit_before .= $this->turnstile->get_widget_content( 'bpcft_callback', 'wordpress-comment', 'c-' . $unique_id );
 		$submit_before .= '<br>';
 
         // TODO: This might be needed later.
