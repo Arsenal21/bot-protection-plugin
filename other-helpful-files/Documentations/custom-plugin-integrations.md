@@ -40,7 +40,9 @@ Place this in the desired place inside your form on which you want to apply bot 
 | `unique_id`  | (Optional)<br/> Generates the id attribute for the widget container like `cf-turnstile-<unique_id>`. Useful if you want to target specific widget. |
 | `class_names`  | (Optional)<br/> CSS classes to add to the widget container. Useful for styling purpose.                                                            |
 
-<b>Note:</b> We currently don't have the support for explicit rendering of widget.
+
+## Rendering Widget Explicitly
+<b>Note:</b> Documentation need to be added here.
 
 ## Validate Captcha Response
 

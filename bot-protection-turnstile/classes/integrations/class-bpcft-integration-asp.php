@@ -63,7 +63,7 @@ class BPCFT_ASP_Integration {
 	}
 
 	public function render_asp_checkout_form_cft($out, $data) {
-		echo wp_kses_post($this->turnstile->get_implicit_widget( 'bpcft_asp_checkout_form_callback', 'asp-checkout', wp_rand(), 'bpcft-place-widget-center' ));
+		echo wp_kses_post($this->turnstile->get_widget_content( 'bpcft_asp_checkout_form_callback', 'asp-checkout', wp_rand(), 'bpcft-place-widget-center' ));
 
 		return $out;
 	}

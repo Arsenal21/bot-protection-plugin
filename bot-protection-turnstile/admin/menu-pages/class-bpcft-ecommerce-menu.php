@@ -4,7 +4,12 @@ class BPCFT_Ecommerce_Menu extends BPCFT_Admin_Menu {
 	public $menu_page_slug = BPCFT_ECOMMERCE_MENU_SLUG;
 
 	/* Specify all the tabs of this menu in the following array */
-	public $menu_tabs = array( 'tab1' => 'Accept Stripe Payments', 'tab2' => 'WooCommerce', 'tab3' => 'Simple Shopping Cart' );
+	public $menu_tabs = array(
+		'tab1' => 'Accept Stripe Payments',
+		'tab2' => 'WooCommerce',
+		'tab3' => 'Simple Shopping Cart',
+		'tab4' => 'WP Express Checkout',
+	);
 
 	public function __construct() {
 		$this->render_settings_menu_page();
@@ -52,6 +57,9 @@ class BPCFT_Ecommerce_Menu extends BPCFT_Admin_Menu {
 		//Switch based on the current tab
 		$tab_keys = array_keys( $this->menu_tabs );
 		switch ( $tab ) {
+			case $tab_keys[3]:
+				$this->wpec_integration_settings_postbox_content();
+				break;
 			case $tab_keys[2]:
 				$this->wpsc_integration_settings_postbox_content();
 				break;
@@ -154,7 +162,7 @@ class BPCFT_Ecommerce_Menu extends BPCFT_Admin_Menu {
 		$bpcft_enable_on_woo_pass_reset = $settings->get_value( 'bpcft_enable_on_woo_pass_reset' );
 		$bpcft_enable_on_woo_checkout = $settings->get_value( 'bpcft_enable_on_woo_checkout' );
 		?>
-        <div id="bpcft-asp-integration-settings-postbox" class="postbox">
+        <div id="bpcft-wc-integration-settings-postbox" class="postbox">
             <h3 class="hndle"><label for="title"><?php esc_attr_e("Turnstile Protection", 'bot-protection-turnstile' ); ?></label></h3>
             <div class="inside">
 
@@ -231,7 +239,7 @@ class BPCFT_Ecommerce_Menu extends BPCFT_Admin_Menu {
 
 		$bpcft_enable_on_wpsc_manual_checkout = $settings->get_value( 'bpcft_enable_on_wpsc_manual_checkout' );
 		?>
-        <div id="bpcft-asp-integration-settings-postbox" class="postbox">
+        <div id="bpcft-wpsc-integration-settings-postbox" class="postbox">
             <h3 class="hndle"><label for="title"><?php esc_attr_e("Turnstile Protection", 'bot-protection-turnstile' ); ?></label></h3>
             <div class="inside">
 
@@ -257,6 +265,50 @@ class BPCFT_Ecommerce_Menu extends BPCFT_Admin_Menu {
                     </table>
 					<?php wp_nonce_field( 'bpcft_wpsc_settings_nonce' ) ?>
 					<?php submit_button( __( 'Save Changes', 'bot-protection-turnstile' ), 'primary', 'bpcft_wpsc_settings_submit' ) ?>
+                </form>
+            </div>
+        </div>
+		<?php
+	}
+
+	public function wpec_integration_settings_postbox_content() {
+		$settings = BPCFT_Config::get_instance();
+		if ( isset( $_POST['bpcft_wpec_settings_submit'] ) && check_admin_referer( 'bpcft_wpec_settings_nonce' ) ) {
+			$settings->set_value( 'bpcft_enable_on_wpec_full_discount_checkout', ( isset( $_POST['bpcft_enable_on_wpec_full_discount_checkout'] ) ? 'checked="checked"' : '' ) );
+
+			$settings->save_config();
+
+			echo '<div class="notice notice-success"><p>' . esc_attr__( 'Settings saved.', 'bot-protection-turnstile' ) . '</p></div>';
+		}
+
+		$bpcft_enable_on_wpec_full_discount_checkout = $settings->get_value( 'bpcft_enable_on_wpec_full_discount_checkout' );
+		?>
+        <div id="bpcft-wpec-integration-settings-postbox" class="postbox">
+            <h3 class="hndle"><label for="title"><?php esc_attr_e("Turnstile Protection", 'bot-protection-turnstile' ); ?></label></h3>
+            <div class="inside">
+
+				<?php if (! BPCFT_Utils::check_if_plugin_active( 'wp-express-checkout/wp-express-checkout.php' )) { ?>
+                    <div class="bpcft-grey-box">
+						<?php esc_html_e( 'WP Express Checkout is not active on your site. Please activate it to use this integration.', 'bot-protection-turnstile' )?>
+                    </div>
+				<?php } ?>
+
+                <form action="" method="post">
+                    <table class="form-table">
+                        <tr>
+                            <th>
+                                <label><?php esc_attr_e( 'Full Discount Checkout Form', 'bot-protection-turnstile' ); ?></label>
+                            </th>
+                            <td>
+                                <input type="checkbox"
+                                       name="bpcft_enable_on_wpec_full_discount_checkout" <?php echo esc_attr( $bpcft_enable_on_wpec_full_discount_checkout ); ?>
+                                       value="1">
+                                <p class="description"><?php esc_attr_e( 'Enable turnstile CAPTCHA on the full discount checkout form of wp express checkout plugin.', 'bot-protection-turnstile' ); ?></p>
+                            </td>
+                        </tr>
+                    </table>
+					<?php wp_nonce_field( 'bpcft_wpec_settings_nonce' ) ?>
+					<?php submit_button( __( 'Save Changes', 'bot-protection-turnstile' ), 'primary', 'bpcft_wpec_settings_submit' ) ?>
                 </form>
             </div>
         </div>

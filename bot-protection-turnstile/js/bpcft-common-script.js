@@ -1,4 +1,11 @@
 /**
+ * Runs when cloudflare turnstile cdn is loaded.
+ */
+function bpcft_onload_cft_cdn(){
+    document.dispatchEvent(new CustomEvent('bpcftOnloadTurnstileCallback'));
+}
+
+/**
  * This callback invoked upon success of the challenge.
  */
 function bpcft_callback(){
