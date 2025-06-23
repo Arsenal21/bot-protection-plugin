@@ -17,8 +17,11 @@ Bot Protection with Turnstile lets you drop-in Cloudflare's privacy-focused, no-
 * **Core WordPress forms** – Login, registration, password reset, and comment forms.
 * **WooCommerce** – Protect checkout, login, registration, and password reset forms.
 * **bbPress** – Secure forum registration, login, and topic creation forms.
+* **Contact Form 7** – Add Turnstile to your CF7 forms to block spam submissions.
 * **Accept Stripe Payments** – Protect checkout and payment pop-up forms.
 * **Simple Download Monitor** – Secure download buttons and squeeze forms.
+* **Simple Shopping Cart** – Add Turnstile to your shopping cart plugin's manual checkout forms.
+* **WP Express Checkout** – Protect checkout 100% discount checkout forms with Turnstile.
 
 Just add your Turnstile *Site Key* and *Secret Key*, choose the forms you want to protect, and you’re done. No more subjecting your users to image puzzles or accessibility headaches.
 
