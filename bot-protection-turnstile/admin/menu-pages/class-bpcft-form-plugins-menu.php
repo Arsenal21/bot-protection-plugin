@@ -106,7 +106,7 @@ class BPCFT_Form_Plugins_Menu extends BPCFT_Admin_Menu {
                                 <p class="description">
                                     <?php
                                         $form_tag = '<code>[' . BPCFT_CF7_Integration::BPCFT_CF7_TAG_NAME . ' bpcft]</code>';
-                                        $form_tag_usage_doc = '<a href="#">'.__('documentation', 'bot-protection-turnstile').'</a>';
+                                        $form_tag_usage_doc = '<a href="https://www.tipsandtricks-hq.com/bot-protection-with-turnstile-plugin#cf7-individual-forms" target="_blank">'.__('documentation', 'bot-protection-turnstile').'</a>';
                                     ?>
                                     <?php echo wp_kses_post( sprintf(__('To enable turnstile for specific forms, place this %s form tag inside the contact form. Use this %s to learn more.', 'bot-protection-turnstile'), $form_tag, $form_tag_usage_doc) ); ?>
                                 </p>

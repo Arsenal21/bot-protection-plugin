@@ -5,7 +5,7 @@ Donate link: https://www.tipsandtricks-hq.com/development-center
 Requires at least: 6.5
 Requires PHP: 7.4
 Tested up to: 6.8
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 
 A lightweight plugin that protects core WordPress forms and selected third‑party plugins from spam and bot attacks using Cloudflare Turnstile CAPTCHA.
@@ -87,7 +87,8 @@ Absolutely. Toggle off any forms you don't wish to protect.
 5. Checkout form of the Accept Stripe Payments plugin.
 
 == Changelog ==
-= WIP =
+
+= 1.0.5 =
 * Contact Form 7 plugin integration added.
 * Simple Shopping Cart plugin integration added.
 * WP Express Checkout plugin integration added.
