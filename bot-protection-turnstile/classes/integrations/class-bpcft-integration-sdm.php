@@ -14,7 +14,7 @@ class BPCFT_SDM_Integration {
 		$bpcft_enable_on_sdm_download = $this->settings->get_value( 'bpcft_enable_on_sdm_download' );
 		if ( $bpcft_enable_on_sdm_download ) {
 			add_filter( 'sdm_before_download_button', array( $this, 'render_sdm_download_form_cft' ), 10, 3 );
-			add_action( 'sdm_download_via_direct_post', array( $this, 'check_download_request' ) );
+			add_action( 'sdm_download_via_direct_post', array( $this, 'check_download_via_direct_post' ) );
 
             // For hidden downloads.
             add_action( 'sdm_hd_process_download_request', array( $this, 'check_download_request' ) );
@@ -94,6 +94,42 @@ class BPCFT_SDM_Integration {
 
         return $this->render_sdm_download_form_cft($output, $id, $args);
     }
+
+	public function check_download_via_direct_post(){
+		if ( !isset($_GET['cf-turnstile-response']) && $_SERVER['REQUEST_METHOD'] == 'GET' ){
+			if(class_exists('SDM_Debug')){
+				SDM_Debug::log('This is a download request via direct download link. So captcha needs to be verified first through an intermediate page.', true);
+			}
+			$this->sdm_show_intermediate_page_for_captcha_validation();
+		}
+		
+		$this->check_download_request();
+	}
+
+	public function sdm_show_intermediate_page_for_captcha_validation(){
+		wp_enqueue_script( 'bpcft-script-sdm', BPCFT_URL . '/js/bpcft-script-sdm.js' , array( 'bpcft-common-script' ), BPCFT_VERSION, array(
+			'strategy'  => 'defer',
+			'in_footer' => true,
+		) );
+
+		$content = '';
+		$content .= '<div id="sdm_captcha_verifying_content">';
+		$content .= wpautop(__('Verifying that you are human, please wait!', 'bot-protection-turnstile'));
+		$content .= $this->turnstile->get_widget_content( 'bpcft_sdm_intermediate_page_token_handle', 'sdm-download', wp_rand(), '' );
+		$content .= '</div>';
+
+		// The following renders when download fails to start automatically. (Hidden by default)
+		$content .= '<div id="sdm_after_captcha_verification_content" class="hidden">';
+		$content .= wpautop(__('Verification Successful. Click the following button to continue download.', 'bot-protection-turnstile'));
+		$content .= '<button id="sdm_intermediate_page_manual_dl_btn" class="sdm_download white">'.__('Download', 'bot-protection-turnstile').'</button>';
+		$content .= '</div>';
+
+		if (function_exists('sdm_dl_request_intermediate_page')) {
+			sdm_dl_request_intermediate_page($content);
+		} else {
+			wp_die( '<p><strong>' . __( 'ERROR:', 'bot-protection-turnstile' ) . '</strong> ' . __( 'Cloudflare turnstile verification error. Is your Simple Download Monitor plugin up to date?', 'bot-protection-turnstile' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'bot-protection-turnstile' ) . '</a>', '', 403 );
+		}
+	}
 
 	public function check_download_request( ) {
 		// Check Turnstile

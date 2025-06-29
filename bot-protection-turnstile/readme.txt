@@ -91,6 +91,9 @@ Absolutely. Toggle off any forms you don't wish to protect.
 
 == Changelog ==
 
+= WIP =
+* SDM download via direct link issue fixed.
+
 = 1.0.5 =
 * Contact Form 7 plugin integration added.
 * Simple Shopping Cart plugin integration added.
