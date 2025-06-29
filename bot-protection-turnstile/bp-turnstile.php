@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Bot Protection with Turnstile
-Version: 1.0.5
+Version: 1.0.6
 Plugin URI: https://www.tipsandtricks-hq.com/bot-protection-with-turnstile-plugin
 Author: Tips and Tricks HQ, mra13
 Author URI: https://www.tipsandtricks-hq.com/
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ){
 }
 
 //Defining the version constants here allows easy updating of them all from one file when releasing new versions.
-define('BPCFT_VERSION', '1.0.5'); //Plugin version
+define('BPCFT_VERSION', '1.0.6'); //Plugin version
 define('BPCFT_DB_VERSION', '1.0'); //DB version
 
 //Include the main plugin class

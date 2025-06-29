@@ -5,7 +5,7 @@ Donate link: https://www.tipsandtricks-hq.com/development-center
 Requires at least: 6.5
 Requires PHP: 7.4
 Tested up to: 6.8
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 
 A lightweight plugin that protects core WordPress forms and selected third‑party plugins from spam and bot attacks using Cloudflare Turnstile CAPTCHA.
@@ -91,8 +91,8 @@ Absolutely. Toggle off any forms you don't wish to protect.
 
 == Changelog ==
 
-= WIP =
-* SDM download via direct link issue fixed.
+= 1.0.6 =
+* Compatibility with the Simple Download Monitor plugin's download via link feature.
 
 = 1.0.5 =
 * Contact Form 7 plugin integration added.

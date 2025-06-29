@@ -114,20 +114,20 @@ class BPCFT_SDM_Integration {
 
 		$content = '';
 		$content .= '<div id="sdm_captcha_verifying_content">';
-		$content .= wpautop(__('Verifying that you are human, please wait!', 'bot-protection-turnstile'));
+		$content .= wpautop(__('Verifying that you are human. Please wait...', 'bot-protection-turnstile'));
 		$content .= $this->turnstile->get_widget_content( 'bpcft_sdm_intermediate_page_token_handle', 'sdm-download', wp_rand(), '' );
 		$content .= '</div>';
 
 		// The following renders when download fails to start automatically. (Hidden by default)
 		$content .= '<div id="sdm_after_captcha_verification_content" class="hidden">';
-		$content .= wpautop(__('Verification Successful. Click the following button to continue download.', 'bot-protection-turnstile'));
+		$content .= wpautop(__('Verification successful. Click the button below to continue your download.', 'bot-protection-turnstile'));
 		$content .= '<button id="sdm_intermediate_page_manual_dl_btn" class="sdm_download white">'.__('Download', 'bot-protection-turnstile').'</button>';
 		$content .= '</div>';
 
 		if (function_exists('sdm_dl_request_intermediate_page')) {
 			sdm_dl_request_intermediate_page($content);
 		} else {
-			wp_die( '<p><strong>' . __( 'ERROR:', 'bot-protection-turnstile' ) . '</strong> ' . __( 'Cloudflare turnstile verification error. Is your Simple Download Monitor plugin up to date?', 'bot-protection-turnstile' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'bot-protection-turnstile' ) . '</a>', '', 403 );
+			wp_die( '<p><strong>' . __( 'Error! ', 'bot-protection-turnstile' ) . '</strong> ' . __( 'Cloudflare Turnstile verification failed. The Simple Download Monitor plugin appears to be outdated. Please update to the latest version.', 'bot-protection-turnstile' ) . "</p>\n\n<p><a href=" . wp_get_referer() . '>&laquo; ' . __( 'Back', 'bot-protection-turnstile' ) . '</a>', '', 403 );
 		}
 	}
 
