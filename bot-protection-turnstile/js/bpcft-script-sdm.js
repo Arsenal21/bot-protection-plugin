@@ -78,3 +78,14 @@ function bpcft_sdm_process_cft_response(token, unique_id){
         // Download form not found, It could be a download link button without a form wrap. Do nothing.
     }
 }
+
+ function bpcft_sdm_intermediate_page_token_handle(token){
+    console.log("[BPCFT] Cloudflare turnstile challenge for SDM is successful.");
+
+    const download_url = new URL(window.location.href); // Current url is the download url, but without catpcah token.
+    download_url.searchParams.set('cf-turnstile-response', token); // append captcha token param
+
+    if (typeof window.sdm_execute_download_in_intermediate_page === 'function') {
+        window.sdm_execute_download_in_intermediate_page(download_url);
+    }
+}
