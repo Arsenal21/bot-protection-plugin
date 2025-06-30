@@ -118,12 +118,6 @@ class BPCFT_SDM_Integration {
 		$content .= $this->turnstile->get_widget_content( 'bpcft_sdm_intermediate_page_token_handle', 'sdm-download', wp_rand(), '' );
 		$content .= '</div>';
 
-		// The following renders when download fails to start automatically. (Hidden by default)
-		$content .= '<div id="sdm_after_captcha_verification_content" class="hidden">';
-		$content .= wpautop(__('Verification successful. Click the button below to continue your download.', 'bot-protection-turnstile'));
-		$content .= '<button id="sdm_intermediate_page_manual_dl_btn" class="sdm_download white">'.__('Download', 'bot-protection-turnstile').'</button>';
-		$content .= '</div>';
-
 		if (function_exists('sdm_dl_request_intermediate_page')) {
 			sdm_dl_request_intermediate_page($content);
 		} else {

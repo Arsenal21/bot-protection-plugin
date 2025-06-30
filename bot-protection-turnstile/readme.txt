@@ -91,6 +91,9 @@ Absolutely. Toggle off any forms you don't wish to protect.
 
 == Changelog ==
 
+= WIP =
+* A small issue fixed regarding Simple Download Monitor plugin's integration.
+
 = 1.0.6 =
 * Compatibility with the Simple Download Monitor plugin's download via link feature.
 
