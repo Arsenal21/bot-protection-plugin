@@ -64,7 +64,7 @@ class BPCFT_WordPress_Integration {
 	}
 
 	public function render_comment_form_cft( $submit_button, $args ) {
-		wp_enqueue_script('bpcft-common-script');
+		wp_enqueue_script('cloudflare-turnstile-script');
 		$unique_id = wp_rand();
 
 		$submit_before = '';

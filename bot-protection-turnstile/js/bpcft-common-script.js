@@ -2,7 +2,13 @@
  * Runs when cloudflare turnstile cdn is loaded.
  */
 function bpcft_onload_cft_cdn(){
-    document.dispatchEvent(new CustomEvent('bpcftOnloadTurnstileCallback'));
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+            document.dispatchEvent(new CustomEvent('bpcftOnloadTurnstileCallback'));
+        });
+    } else {
+        document.dispatchEvent(new CustomEvent('bpcftOnloadTurnstileCallback'));
+    }
 }
 
 /**

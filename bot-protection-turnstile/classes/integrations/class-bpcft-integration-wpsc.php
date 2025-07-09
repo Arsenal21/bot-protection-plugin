@@ -18,7 +18,7 @@ class BPCFT_WPSC_Integration {
 	}
 
 	public function render_wpsc_manual_checkout_form_cft() {
-		wp_enqueue_script( 'bpcft-script-wpsc', BPCFT_URL . '/js/bpcft-script-wpsc.js', array( 'bpcft-common-script' ), BPCFT_VERSION );
+		wp_enqueue_script( 'bpcft-script-wpsc', BPCFT_URL . '/js/bpcft-script-wpsc.js', array( 'cloudflare-turnstile-script' ), BPCFT_VERSION );
 
 		ob_start();
 		$this->turnstile->render_implicit( 'bpcft_callback', 'wpsc-manual-checkout', wp_rand() , 'bpcft-widget-mt-15');

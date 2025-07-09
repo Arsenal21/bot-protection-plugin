@@ -49,11 +49,11 @@ class BPCFT_ASP_Integration {
 	public function add_cft_scripts( $scripts ) {
 		$scripts[] = array(
 			'footer' => true,
-			'src'    => BPCFT_Turnstile::get_cft_cdn_url(),
+			'src'    => BPCFT_Turnstile::get_bpcft_script_url() . '?ver=' . BPCFT_VERSION,
 		);
 		$scripts[] = array(
 			'footer' => true,
-			'src'    => BPCFT_Turnstile::get_bpcft_script_url() . '?ver=' . BPCFT_VERSION,
+			'src'    => BPCFT_Turnstile::get_cft_cdn_url(),
 		);
 		$scripts[] = array(
 			'footer' => true,

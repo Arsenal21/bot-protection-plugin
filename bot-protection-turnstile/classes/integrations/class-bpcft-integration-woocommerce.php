@@ -50,7 +50,7 @@ class BPCFT_WooCommerce_Integration {
 	}
 
 	public function render_woo_checkout_form_cft() {
-		wp_enqueue_script( 'bpcft-script-woo', BPCFT_URL . '/js/bpcft-script-woo.js', array( 'bpcft-common-script', 'jquery' ), BPCFT_VERSION, array(
+		wp_enqueue_script( 'bpcft-script-woo', BPCFT_URL . '/js/bpcft-script-woo.js', array( 'cloudflare-turnstile-script', 'jquery' ), BPCFT_VERSION, array(
 			'strategy'  => 'defer',
 			'in_footer' => true,
 		) );
