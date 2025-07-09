@@ -40,7 +40,7 @@ class BPCFT_Turnstile {
     }
 
 	public static function register_scripts() {
-		wp_register_script( 'cloudflare-turnstile-script', self::get_cft_cdn_url(), array(), BPCFT_VERSION, true );
+		wp_register_script( 'cloudflare-turnstile-script', self::get_cft_cdn_url(), array(), null, true );
 		wp_register_script( 'bpcft-common-script', self::get_bpcft_script_url() , array( 'cloudflare-turnstile-script' ), BPCFT_VERSION, array(
 			'strategy'  => 'defer',
 			'in_footer' => true,

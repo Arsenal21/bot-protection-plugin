@@ -90,6 +90,8 @@ Absolutely. Toggle off any forms you don't wish to protect.
 5. Checkout form of the Accept Stripe Payments plugin.
 
 == Changelog ==
+= WIP =
+* A js warning issue fixed.
 
 = 1.0.7 =
 * Improved the Simple Download Monitor plugin's integration.
