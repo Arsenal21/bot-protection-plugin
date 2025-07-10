@@ -90,6 +90,8 @@ Absolutely. Toggle off any forms you don't wish to protect.
 5. Checkout form of the Accept Stripe Payments plugin.
 
 == Changelog ==
+= WIP =
+* Manual Checkout Form support added for WP Express Checkout.
 
 = 1.0.8 =
 * Fixed a JS warning.

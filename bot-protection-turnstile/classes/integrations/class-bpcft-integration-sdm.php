@@ -31,7 +31,7 @@ class BPCFT_SDM_Integration {
      * For core and hidden downloads form.
 	 */
 	public function render_sdm_download_form_cft($output, $id, $args ) {
-		wp_enqueue_script( 'bpcft-script-sdm', BPCFT_URL . '/js/bpcft-script-sdm.js' , array( 'bpcft-common-script' ), BPCFT_VERSION, array(
+		wp_enqueue_script( 'bpcft-script-sdm', BPCFT_URL . '/js/bpcft-script-sdm.js' , array( 'cloudflare-turnstile-script' ), BPCFT_VERSION, array(
 			'strategy'  => 'defer',
 			'in_footer' => true,
 		) );
@@ -107,7 +107,7 @@ class BPCFT_SDM_Integration {
 	}
 
 	public function sdm_show_intermediate_page_for_captcha_validation(){
-		wp_enqueue_script( 'bpcft-script-sdm', BPCFT_URL . '/js/bpcft-script-sdm.js' , array( 'bpcft-common-script' ), BPCFT_VERSION, array(
+		wp_enqueue_script( 'bpcft-script-sdm', BPCFT_URL . '/js/bpcft-script-sdm.js' , array( 'cloudflare-turnstile-script' ), BPCFT_VERSION, array(
 			'strategy'  => 'defer',
 			'in_footer' => true,
 		) );

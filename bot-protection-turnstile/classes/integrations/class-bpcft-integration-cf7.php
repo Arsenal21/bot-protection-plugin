@@ -31,7 +31,7 @@ class BPCFT_CF7_Integration {
 	 * Returns the necessary HTML markups for turnstile widget.
 	 */
 	public function cf7_bpcft_content() {
-		wp_enqueue_script( 'bpcft-script-cf7', BPCFT_URL . '/js/bpcft-script-cf7.js', array( 'bpcft-common-script' ), BPCFT_VERSION );
+		wp_enqueue_script( 'bpcft-script-cf7', BPCFT_URL . '/js/bpcft-script-cf7.js', array( 'cloudflare-turnstile-script' ), BPCFT_VERSION );
 
 		$unique_id = wp_rand();
 

@@ -40,17 +40,15 @@ class BPCFT_Turnstile {
     }
 
 	public static function register_scripts() {
-		wp_register_script( 'cloudflare-turnstile-script', self::get_cft_cdn_url(), array(), null, true );
-		wp_register_script( 'bpcft-common-script', self::get_bpcft_script_url() , array( 'cloudflare-turnstile-script' ), BPCFT_VERSION, array(
+		wp_register_script( 'bpcft-common-script', self::get_bpcft_script_url() , array(), BPCFT_VERSION );
+        wp_register_script( 'cloudflare-turnstile-script', self::get_cft_cdn_url(), array('bpcft-common-script'), null, array(
 			'strategy'  => 'defer',
 			'in_footer' => true,
 		) );
-
-		wp_register_script( 'cloudflare-turnstile-script-explicit', self::get_cft_cdn_url_explicit(), array(), BPCFT_VERSION, true );
-		wp_register_script( 'bpcft-common-script-explicit', self::get_bpcft_script_url() , array( 'cloudflare-turnstile-script-explicit' ), BPCFT_VERSION, array(
+		wp_register_script( 'cloudflare-turnstile-script-explicit', self::get_cft_cdn_url_explicit(), array('bpcft-common-script'), null, array(
 			'strategy'  => 'defer',
 			'in_footer' => true,
-		) );
+		));
 
         // Public style
 		wp_register_style( 'bpcft-styles', self::get_bpcft_style_url() , array(), BPCFT_VERSION );
@@ -93,7 +91,14 @@ class BPCFT_Turnstile {
 	/**
 	 * Renders cloudflare turnstile widget.
 	 */
-    private function render($callback = '', $form_name = '', $unique_id = '', $class = '' , $widget_id = ''){
+    private function render($callback = '', $form_name = '', $unique_id = '', $class = '' , $widget_id = '', $is_explicit = false){
+        if ($is_explicit){
+	        wp_enqueue_script( 'cloudflare-turnstile-script-explicit' );
+        } else {
+	        wp_enqueue_script( 'cloudflare-turnstile-script' );
+        }
+	    wp_enqueue_style( 'bpcft-styles' );
+
 	    $callback = sanitize_text_field($callback);
 	    $form_name = sanitize_text_field($form_name);
 	    $unique_id = sanitize_text_field($unique_id);
@@ -108,25 +113,18 @@ class BPCFT_Turnstile {
 	    do_action( "bpcft_after_cft_widget", $unique_id, $widget_id );
     }
 
-
 	/**
      * Renders cloudflare turnstile widget with implicit script
 	 */
 	public function render_implicit( $callback = '', $form_name = '', $unique_id = '', $class = '' , $widget_id = '') {
-        wp_enqueue_script( 'bpcft-common-script' );
-	    wp_enqueue_style( 'bpcft-styles' );
-
-        $this->render($callback, $form_name, $unique_id, $class, $widget_id);
+        $this->render($callback, $form_name, $unique_id, $class, $widget_id, false);
 	}
 
 	/**
      * Renders cloudflare turnstile widget with explicit script
 	 */
     public function render_explicit($callback = '', $form_name = '', $unique_id = '', $class = '' , $widget_id = '') {
-        wp_enqueue_script( 'bpcft-common-script-explicit' );
-	    wp_enqueue_style( 'bpcft-styles' );
-
-	    $this->render($callback, $form_name, $unique_id, $class, $widget_id);
+	    $this->render($callback, $form_name, $unique_id, $class, $widget_id, true);
     }
 
 	/**
