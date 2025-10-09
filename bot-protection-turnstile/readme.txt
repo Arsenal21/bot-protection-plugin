@@ -92,6 +92,7 @@ Absolutely. Toggle off any forms you don't wish to protect.
 == Changelog ==
 = WIP =
 * Manual Checkout Form support added for WP Express Checkout.
+* Support added for WP eMember plugin.
 
 = 1.0.8 =
 * Fixed a JS warning.

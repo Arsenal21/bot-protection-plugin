@@ -81,6 +81,7 @@ class BPCFT_Main {
 		include_once( BPCFT_PATH . '/classes/integrations/class-bpcft-integration-cf7.php' );
 		include_once( BPCFT_PATH . '/classes/integrations/class-bpcft-integration-wpsc.php' );
 		include_once( BPCFT_PATH . '/classes/integrations/class-bpcft-integration-wpec.php' );
+		include_once( BPCFT_PATH . '/classes/integrations/class-bpcft-integration-emember.php' );
 		if ( is_admin() ) {
 			//Load admin side only files
 			include_once( BPCFT_PATH . '/admin/class-bpcft-admin-init.php' );
@@ -112,6 +113,7 @@ class BPCFT_Main {
 		new BPCFT_CF7_Integration();
 		new BPCFT_WPSC_Integration();
 		new BPCFT_WPEC_Integration();
+		new BPCFT_eMember_Integration();
 	}
 
 	public function load_language() {
