@@ -4,7 +4,7 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
 	public $menu_page_slug = BPCFT_INTEGRATIONS_MENU_SLUG;
 
 	/* Specify all the tabs of this menu in the following array */
-	public $menu_tabs = array( 'tab1' => 'Simple Download Monitor' );
+	public $menu_tabs = array( 'tab1' => 'Simple Download Monitor', 'tab2' => 'WP eMember' );
 
 	public function __construct() {
 		$this->render_settings_menu_page();
@@ -52,6 +52,9 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
 		//Switch based on the current tab
 		$tab_keys = array_keys( $this->menu_tabs );
 		switch ( $tab ) {
+			case $tab_keys[1]:
+				$this->eMember_integration_settings_postbox_content();
+				break;
 			case $tab_keys[0]:
 			default:
                 $this->sdm_integration_settings_postbox_content();
@@ -129,6 +132,86 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
 		<?php
 	}
 
+	public function eMember_integration_settings_postbox_content() {
+		$settings = BPCFT_Config::get_instance();
+		if ( isset( $_POST['bpcft_emember_settings_submit'] ) && check_admin_referer( 'bpcft_emember_settings_nonce' ) ) {
+			$settings->set_value( 'bpcft_enable_on_emember_login_form', ( isset( $_POST['bpcft_enable_on_emember_login_form'] ) ? 'checked="checked"' : '' ) );
+			$settings->set_value( 'bpcft_enable_on_emember_reg_form', ( isset( $_POST['bpcft_enable_on_emember_reg_form'] ) ? 'checked="checked"' : '' ) );
+			$settings->set_value( 'bpcft_enable_on_emember_pass_reset_form', ( isset( $_POST['bpcft_enable_on_emember_pass_reset_form'] ) ? 'checked="checked"' : '' ) );
+
+			$settings->save_config();
+
+			echo '<div class="notice notice-success"><p>' . esc_attr__( 'Settings saved.', 'bot-protection-turnstile' ) . '</p></div>';
+		}
+
+		$bpcft_enable_on_emember_login_form = $settings->get_value( 'bpcft_enable_on_emember_login_form' );
+		$bpcft_enable_on_emember_reg_form = $settings->get_value( 'bpcft_enable_on_emember_reg_form' );
+		$bpcft_enable_on_emember_pass_reset_form = $settings->get_value( 'bpcft_enable_on_emember_pass_reset_form' );
+
+		$eMember_plugin_captcha_enabled_val = $this->get_eMember_plugin_captcha_enabled_val()
+
+		?>
+        <div id="bpcft-emember-integration-settings-postbox" class="postbox">
+            <h3 class="hndle"><label for="title"><?php esc_attr_e("Turnstile Protection", 'bot-protection-turnstile' ); ?></label></h3>
+            <div class="inside">
+
+	            <?php if (! BPCFT_Utils::check_if_plugin_active( 'wp-eMember/wp_eMember.php' )) { ?>
+                    <div class="bpcft-grey-box">
+			            <?php esc_html_e( 'WP eMember plugin is not active on your site. Please activate it to use this integration.', 'bot-protection-turnstile' )?>
+                    </div>
+	            <?php } ?>
+
+	            <?php if (!empty($eMember_plugin_captcha_enabled_val)) { ?>
+                    <div class="bpcft-yellow-box">
+                        <strong><?php esc_attr_e('Note: ', 'bot-protection-turnstile'); ?></strong><?php echo esc_attr(sprintf( __("The '%s' option is already enabled in the main WP eMember plugin. Please disable it before using the Turnstile CAPTCHA.", 'bot-protection-turnstile'), $eMember_plugin_captcha_enabled_val)); ?>
+                    </div>
+	            <?php } ?>
+
+                <form action="" method="post">
+                <table class="form-table">
+                    <tr>
+                        <th>
+                            <label><?php esc_attr_e( 'eMember Login Form', 'bot-protection-turnstile' ); ?></label>
+                        </th>
+                        <td>
+                            <input type="checkbox"
+                                   name="bpcft_enable_on_emember_login_form" <?php echo esc_attr( $bpcft_enable_on_emember_login_form ); ?>
+                                   value="1">
+                            <p class="description"><?php esc_attr_e( 'Enable turnstile CAPTCHA on the login form of WP eMember plugin.', 'bot-protection-turnstile' ); ?></p>
+                        </td>
+                    </tr>
+					<tr>
+                        <th>
+                            <label><?php esc_attr_e( 'eMember Registration Form', 'bot-protection-turnstile' ); ?></label>
+                        </th>
+                        <td>
+                            <input type="checkbox"
+                                   name="bpcft_enable_on_emember_reg_form" <?php echo esc_attr( $bpcft_enable_on_emember_reg_form ); ?>
+                                   value="1">
+                            <p class="description"><?php esc_attr_e( 'Enable turnstile CAPTCHA on the registration form of WP eMember plugin.', 'bot-protection-turnstile' ); ?></p>
+                        </td>
+                    </tr>
+					<tr>
+                        <th>
+                            <label><?php esc_attr_e( 'eMember Password Reset Form', 'bot-protection-turnstile' ); ?></label>
+                        </th>
+                        <td>
+                            <input type="checkbox"
+                                   name="bpcft_enable_on_emember_pass_reset_form" <?php echo esc_attr( $bpcft_enable_on_emember_pass_reset_form ); ?>
+                                   value="1">
+                            <p class="description"><?php esc_attr_e( 'Enable turnstile CAPTCHA on the password reset form of WP eMember plugin.', 'bot-protection-turnstile' ); ?></p>
+                        </td>
+                    </tr>
+
+                </table>
+                <?php wp_nonce_field( 'bpcft_emember_settings_nonce' ) ?>
+                <?php submit_button( __( 'Save Changes', 'bot-protection-turnstile' ), 'primary', 'bpcft_emember_settings_submit' ) ?>
+            </form>
+            </div>
+        </div>
+		<?php
+	}
+
 	public function get_sdm_plugin_captcha_enabled_val(){
 		$settings =  get_option( 'sdm_advanced_options', array());
 
@@ -137,6 +220,19 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
 			$captcha_name = 'Google reCaptcha v3';
 		} elseif ( isset($settings['recaptcha_enable']) && !empty($settings['recaptcha_enable']) ) {
 			$captcha_name = 'Google reCaptcha v2';
+		}
+		
+		return $captcha_name;
+	}
+	
+	public function get_eMember_plugin_captcha_enabled_val(){
+		$captcha_name = '';
+		if (class_exists('Emember_Config')) {
+			$emember_config = Emember_Config::getInstance();
+			$enable_recaptcha = $emember_config->getValue('emember_enable_recaptcha');
+			if (!empty($enable_recaptcha)) {
+				$captcha_name = 'Google reCaptcha';
+			}
 		}
 
 		return $captcha_name;
