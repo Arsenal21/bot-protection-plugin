@@ -5,7 +5,7 @@ Donate link: https://www.tipsandtricks-hq.com/development-center
 Requires at least: 6.5
 Requires PHP: 7.4
 Tested up to: 6.8
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPLv2 or later
 
 A lightweight plugin that protects core WordPress forms and selected third‑party plugins from spam and bot attacks using Cloudflare Turnstile CAPTCHA.
@@ -22,6 +22,7 @@ Bot Protection with Turnstile lets you drop-in Cloudflare's privacy-focused, no-
 * **Simple Download Monitor** – Secure download buttons and squeeze forms.
 * **Simple Shopping Cart** – Add Turnstile to your shopping cart plugin's manual checkout forms.
 * **WP Express Checkout** – Protect checkout 100% discount checkout forms with Turnstile.
+* **WP eMember** – Secure registration, login and password reset forms with Turnstile.
 
 Just add your Turnstile *Site Key* and *Secret Key*, choose the forms you want to protect, and you’re done. No more subjecting your users to image puzzles or accessibility headaches.
 
@@ -90,9 +91,10 @@ Absolutely. Toggle off any forms you don't wish to protect.
 5. Checkout form of the Accept Stripe Payments plugin.
 
 == Changelog ==
-= WIP =
-* Manual Checkout Form support added for WP Express Checkout.
-* Support added for WP eMember plugin.
+
+= 1.0.9 =
+* Manual Checkout Form support added for WP Express Checkout plugin.
+* Turnstile CAPTCHA support added for the WP eMember plugin.
 
 = 1.0.8 =
 * Fixed a JS warning.

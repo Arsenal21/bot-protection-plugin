@@ -154,6 +154,9 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
         <div id="bpcft-emember-integration-settings-postbox" class="postbox">
             <h3 class="hndle"><label for="title"><?php esc_attr_e("Turnstile Protection", 'bot-protection-turnstile' ); ?></label></h3>
             <div class="inside">
+				<?php
+				_e('<p class="description">This integration is for the <a href="https://www.tipsandtricks-hq.com/wordpress-emember-easy-to-use-wordpress-membership-plugin-1706" target="_blank">WP eMember</a> plugin</p>', 'bot-protection-turnstile');
+				?>
 
 	            <?php if (! BPCFT_Utils::check_if_plugin_active( 'wp-eMember/wp_eMember.php' )) { ?>
                     <div class="bpcft-grey-box">
@@ -171,7 +174,7 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
                 <table class="form-table">
                     <tr>
                         <th>
-                            <label><?php esc_attr_e( 'eMember Login Form', 'bot-protection-turnstile' ); ?></label>
+                            <label><?php esc_attr_e( 'WP eMember Login Form', 'bot-protection-turnstile' ); ?></label>
                         </th>
                         <td>
                             <input type="checkbox"
@@ -182,7 +185,7 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
                     </tr>
 					<tr>
                         <th>
-                            <label><?php esc_attr_e( 'eMember Registration Form', 'bot-protection-turnstile' ); ?></label>
+                            <label><?php esc_attr_e( 'WP eMember Registration Form', 'bot-protection-turnstile' ); ?></label>
                         </th>
                         <td>
                             <input type="checkbox"
@@ -193,7 +196,7 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
                     </tr>
 					<tr>
                         <th>
-                            <label><?php esc_attr_e( 'eMember Password Reset Form', 'bot-protection-turnstile' ); ?></label>
+                            <label><?php esc_attr_e( 'WP eMember Password Reset Form', 'bot-protection-turnstile' ); ?></label>
                         </th>
                         <td>
                             <input type="checkbox"
@@ -231,7 +234,7 @@ class BPCFT_Integrations_Menu extends BPCFT_Admin_Menu {
 			$emember_config = Emember_Config::getInstance();
 			$enable_recaptcha = $emember_config->getValue('emember_enable_recaptcha');
 			if (!empty($enable_recaptcha)) {
-				$captcha_name = 'Google reCaptcha';
+				$captcha_name = 'Google reCAPTCHA';
 			}
 		}
 
