@@ -91,6 +91,8 @@ Absolutely. Toggle off any forms you don't wish to protect.
 5. Checkout form of the Accept Stripe Payments plugin.
 
 == Changelog ==
+= WIP =
+* A error message now displays in the front end when api keys are not set in the settings.
 
 = 1.0.9 =
 * Manual Checkout Form support added for WP Express Checkout plugin.

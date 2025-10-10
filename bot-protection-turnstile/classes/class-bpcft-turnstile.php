@@ -56,6 +56,11 @@ class BPCFT_Turnstile {
 
     public function get_widget_content( $callback = '', $form_name = '', $unique_id = '', $class = '' ){
 	    $site_key    = $this->settings->get_value( 'bpcft_site_key' );
+	    $secret_key    = $this->settings->get_value( 'bpcft_secret_key' );
+
+        if (empty($site_key) || empty($secret_key)){
+            return '<p class="bpcft-error-msg">'. __("Error! You have enabled the CAPTCHA option, but the necessary Turnstile API keys are missing. Please go to the settings menu and enter the API details to resolve this.", 'bot-protection-turnstile') .'</p>';
+        }
 
 	    $unique_id = !empty($unique_id) ? $unique_id : wp_rand();
 
