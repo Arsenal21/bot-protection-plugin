@@ -91,6 +91,8 @@ Absolutely. Toggle off any forms you don't wish to protect.
 5. Checkout form of the Accept Stripe Payments plugin.
 
 == Changelog ==
+= WIP =
+* Compatibility support added for WPEC free and manual checkout.
 
 = 1.1.0 =
 * Added an appropriate error message that will be shown in the front end when api keys are not set in the settings.
