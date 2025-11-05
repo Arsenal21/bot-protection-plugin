@@ -26,6 +26,7 @@ class BPCFT_WPEC_Integration {
         if ($bpcft_enable_on_wpec_full_discount_checkout || $bpcft_enable_on_wpec_manual_checkout){
 			add_action( 'wpec_url_payment_box_before_head_close', array( $this, 'wpec_url_payment_bpcft_scripts' ) ); // For url payment form.
 			add_action( 'wpec_process_payment', array( $this, 'check_wpec_process_payment' ), 10 ,2 );
+			add_action( 'wpec_process_manual_checkout', array( $this, 'check_wpec_process_payment' ), 10 ,2 );
         }
 
         $this->enabled_on_full_discount_checkout = $bpcft_enable_on_wpec_full_discount_checkout;

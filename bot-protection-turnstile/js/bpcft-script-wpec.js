@@ -56,17 +56,15 @@ function bpcft_wpec_onload_cft() {
     let bpcft_wpec_manual_checkout_cft_widget_id = {};
 
     document.addEventListener('wpec_toggle_manual_checkout_form', function (e){
-        console.log('wpec_toggle_manual_checkout_form event ran') // TODO: Remove this
-        const {wpecManualCheckout} = e.detail;
+        const {wpecManualCheckout, wpecHandler} = e.detail;
 
-        const button_id = wpecManualCheckout.parent.data?.id;
-
+        const button_id = wpecManualCheckout.buttonId;
         const bpcft_div = document.querySelector('.bpcft_widget_manual_checkout_' + button_id);
         if (!bpcft_div) {
             return;
         }
 
-        const isManualCheckoutFormOpen = wpecManualCheckout.parent.isElementVisible(wpecManualCheckout.mcForm);
+        const isManualCheckoutFormOpen = wpecHandler.isElementVisible(wpecManualCheckout.mcForm);
 
         // Remove the turnstile widget if manual checkout form is closed (not visible), but a previously rendered widget id is set.
         if (!isManualCheckoutFormOpen && bpcft_wpec_manual_checkout_cft_widget_id[button_id]) {
@@ -86,9 +84,9 @@ function bpcft_wpec_onload_cft() {
      * Append the cft response token to the free checkout request payload.
      */
     document.addEventListener('wpec_process_manual_checkout', function (e) {
-        const {paymentData, data} = e.detail;
+        const {paymentData, wpecHandler, wpecManualCheckout} = e.detail;
 
-        const bpcft_cont = document.querySelector('.bpcft_widget_manual_checkout_' + data.id);
+        const bpcft_cont = document.querySelector('.bpcft_widget_manual_checkout_' + wpecManualCheckout.buttonId);
         if (bpcft_cont) {
             const token_input = bpcft_cont.querySelector('input[name="cf-turnstile-response"]');
             paymentData['bpcftResponse'] = token_input?.value;
