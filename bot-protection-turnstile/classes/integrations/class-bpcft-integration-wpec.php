@@ -60,7 +60,11 @@ class BPCFT_WPEC_Integration {
 	}
 
 	public function check_wpec_process_payment($payment, $data) {
-        $is_manual_checkout = isset($payment['id']) && strpos($payment['id'], 'manual') !== false;
+		if (!isset($payment['id'])) {
+			return;
+		}
+
+        $is_manual_checkout = strpos($payment['id'], 'manual') !== false;
 
         if ($is_manual_checkout && !$this->enabled_on_manual_checkout){
             // Not enabled for manual checkout. Noting to do.
