@@ -46,29 +46,69 @@ class BPCFT_BBpress_Integration {
 	}
 
 	public function filter_bbp_wp_login_action( $login_url, $r, $args ){
-		$login_url = add_query_arg( array( 'bbpress-bpcft' => 1 ), $login_url );
+		$login_url = add_query_arg( array( 'bbpress-bpcft' => 1 ), $login_url ); // NOTE: This guard has also added to BPCFT_WordPress_Integration methods.
 
 		return $login_url;
 	}
 
 	public function render_bbp_login_form_cft() {
+		if (BPCFT_Utils::is_wp_login_page()) {
+			return;
+		}
+
+		$allow_render = false;
 		if ( is_page() && has_shortcode( get_post()->post_content, 'bbp-login' ) ) {
-			$this->turnstile->render_implicit( 'bpcft_callback', 'bbp-login', wp_rand(), 'bpcft-widget-mt-12' );
+			$allow_render = true;
 		} else if ( function_exists('is_bbpress') && is_bbpress() && !is_page() ) {
 			// For bbpress topic page login form
-			$this->turnstile->render_implicit( 'bpcft_callback', 'bbp-login', wp_rand(), 'bpcft-widget-mt-12' );
+			$allow_render = true;
+		}
+
+		if ($allow_render){
+			wp_enqueue_script('bpcft-script-bbp', BPCFT_URL . '/js/bpcft-script-bbp.js', array('cloudflare-turnstile-script'), BPCFT_VERSION);
+			$unique_id = wp_rand();
+			ob_start();
+			?>
+			<script>bpcft_bbp_register_cft_render( <?php echo esc_js($unique_id)?>, 'login');</script>
+			<?php
+			echo ob_get_clean();
+			$class = 'bpcft-widget-mt-12 bpcft_widget_bbp_login_form';
+
+			$this->turnstile->render_explicit( 'bpcft_callback', 'bbp-login', $unique_id, $class );
 		}
 	}
 
 	public function render_bbp_register_form_cft() {
 		if (is_page() && has_shortcode(get_post()->post_content, 'bbp-register')) {
-			$this->turnstile->render_implicit( 'bpcft_callback', 'bbp-register', wp_rand(), 'bpcft-widget-mt-12' );
+			wp_enqueue_script('bpcft-script-bbp', BPCFT_URL . '/js/bpcft-script-bbp.js', array('cloudflare-turnstile-script'), BPCFT_VERSION);
+			$unique_id = wp_rand();
+			ob_start();
+			?>
+            <script>bpcft_bbp_register_cft_render( <?php echo esc_js($unique_id)?>, 'register');</script>
+			<?php
+			echo ob_get_clean();
+			$class = 'bpcft-widget-mt-12 bpcft_widget_bbp_register_form';
+
+			$this->turnstile->render_explicit( 'bpcft_callback', 'bbp-register', $unique_id, $class );
 		}
 	}
 
 	public function render_bbp_pass_reset_form_cft() {
+		if (BPCFT_Utils::is_wp_login_page()) {
+			return;
+		}
+
 		if (is_page() && has_shortcode(get_post()->post_content, 'bbp-lost-pass')) {
-			$this->turnstile->render_implicit( 'bpcft_callback', 'bbp-lost-pass', wp_rand() );
+			wp_enqueue_script('bpcft-script-bbp', BPCFT_URL . '/js/bpcft-script-bbp.js', array('cloudflare-turnstile-script'), BPCFT_VERSION);
+			$unique_id = wp_rand();
+			ob_start();
+			?>
+            <script>bpcft_bbp_register_cft_render( <?php echo esc_js($unique_id)?>, 'pass-reset');</script>
+			<?php
+			echo ob_get_clean();
+			$class = 'bpcft_widget_bbp_pass_reset_form';
+
+			$this->turnstile->render_explicit( 'bpcft_callback', 'bbp-lost-pass', $unique_id, $class);
 		}
 	}
 

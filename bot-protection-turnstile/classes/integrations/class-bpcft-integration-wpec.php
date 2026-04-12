@@ -37,14 +37,14 @@ class BPCFT_WPEC_Integration {
 		?>
 		<script type="text/javascript" src="<?php echo esc_url_raw( BPCFT_Turnstile::get_bpcft_script_url())?>"></script>
 		<script type="text/javascript" src="<?php echo esc_url_raw(BPCFT_URL . '/js/bpcft-script-wpec.js')?>"></script>
-		<script type="text/javascript" src="<?php echo esc_url_raw( BPCFT_Turnstile::get_cft_cdn_url_explicit() )?>"></script>
+		<script type="text/javascript" src="<?php echo esc_url_raw( BPCFT_Turnstile::get_cft_cdn_url() )?>"></script>
 
 		<link rel="stylesheet" href="<?php echo esc_url_raw(BPCFT_Turnstile::get_bpcft_style_url()) ?>" />
 		<?php
 	}
 
 	public function render_wpec_full_discount_checkout_form($args, $button_id) {
-		wp_enqueue_script('bpcft-script-wpec', BPCFT_URL . '/js/bpcft-script-wpec.js', array('cloudflare-turnstile-script-explicit'), BPCFT_VERSION);
+		wp_enqueue_script('bpcft-script-wpec', BPCFT_URL . '/js/bpcft-script-wpec.js', array('cloudflare-turnstile-script'), BPCFT_VERSION);
 
         $class = 'bpcft-widget-mb-12 bpcft_widget_full_discount_'.$button_id;
 
@@ -52,7 +52,7 @@ class BPCFT_WPEC_Integration {
 	}
 
 	public function render_wpec_manual_checkout_form($args, $button_id) {
-		wp_enqueue_script('bpcft-script-wpec', BPCFT_URL . '/js/bpcft-script-wpec.js', array('cloudflare-turnstile-script-explicit'), BPCFT_VERSION);
+		wp_enqueue_script('bpcft-script-wpec', BPCFT_URL . '/js/bpcft-script-wpec.js', array('cloudflare-turnstile-script'), BPCFT_VERSION);
 
 		$class = 'bpcft-widget-mb-12 bpcft_widget_manual_checkout_'.$button_id;
 

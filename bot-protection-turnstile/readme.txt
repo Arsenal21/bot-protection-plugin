@@ -91,6 +91,8 @@ Absolutely. Toggle off any forms you don't wish to protect.
 5. Checkout form of the Accept Stripe Payments plugin.
 
 == Changelog ==
+= WIP =
+* A bbPress related turnstile issue fixed.
 
 = 1.1.1 =
 * Added support added for WPEC free and manual checkout.
