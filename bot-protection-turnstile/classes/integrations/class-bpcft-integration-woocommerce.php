@@ -55,7 +55,7 @@ class BPCFT_WooCommerce_Integration {
 			'in_footer' => true,
 		) );
 
-		$this->turnstile->render_implicit( 'bpcft_callback', 'woocommerce-checkout', 'woo-checkout', '' );
+		$this->turnstile->render_explicit( 'bpcft_callback', 'woocommerce-checkout', 'woo-checkout', '' );
 	}
 
 	public function render_woo_pre_block_checkout_form_cft( $block_content ) {

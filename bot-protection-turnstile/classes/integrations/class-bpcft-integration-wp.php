@@ -38,7 +38,7 @@ class BPCFT_WordPress_Integration {
 
 	public function render_wp_login_form_cft() {
 		// Skip if not on wp login page
-		if (! BPCFT_Utils::is_login_page()) {
+		if (! BPCFT_Utils::is_wp_login_page()) {
 			return;
 		}
 
@@ -84,6 +84,11 @@ class BPCFT_WordPress_Integration {
 		if ( ! isset( $user->ID ) ) {
 			return $user;
 		}
+
+		if ( isset( $_REQUEST['bbpress-bpcft'] ) ){
+			return $user;
+		} // Skip if bbpress form submit.
+
 		if ( isset( $_POST['woocommerce-login-nonce'] ) ) {
 			return $user;
 		} // Skip woo
@@ -98,7 +103,7 @@ class BPCFT_WordPress_Integration {
 		} // Skip Errors
 
 		// Skip if not on login page
-		if ( ! BPCFT_Utils::is_login_page()) {
+		if ( ! BPCFT_Utils::is_wp_login_page()) {
 			return $user;
 		}
 
@@ -154,6 +159,10 @@ class BPCFT_WordPress_Integration {
 		if (is_wp_error($validation_errors) && in_array('bpcft_turnstile_error', $validation_errors->get_error_codes() )){
 			return;
 		}
+
+		if ( isset( $_REQUEST['bbpress-bpcft'] ) ){
+			return;
+		} // Skip if bbpress form submit.
 
 		// Skip Woo
 		if ( isset( $_POST['woocommerce-lost-password-nonce'] ) ) {

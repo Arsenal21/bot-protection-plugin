@@ -1,7 +1,7 @@
 <?php
 
 class BPCFT_Utils {
-	public static function is_login_page() {
+	public static function is_wp_login_page() {
 		$login_url_path   = wp_parse_url( wp_login_url(), PHP_URL_PATH );
 
 		$request_uri = isset($_SERVER['REQUEST_URI']) ? sanitize_url(wp_unslash($_SERVER['REQUEST_URI'])) : '';
@@ -13,7 +13,7 @@ class BPCFT_Utils {
 
 	public static function is_registration_page() {
 		// The registration page is in the same page of login, but with an action param 'register';
-		if ( self::is_login_page() ) {
+		if ( self::is_wp_login_page() ) {
 			return isset( $_GET['action'] ) && $_GET['action'] == 'register';
 		}
 
@@ -22,7 +22,7 @@ class BPCFT_Utils {
 
 	public static function is_reset_password_page() {
 		// The registration page is in the same page of login, but with an action param 'lostpassword';
-		if ( self::is_login_page() ) {
+		if ( self::is_wp_login_page() ) {
 			return isset( $_GET['action'] ) && $_GET['action'] == 'lostpassword';
 		}
 

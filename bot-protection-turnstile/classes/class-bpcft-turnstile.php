@@ -20,16 +20,15 @@ class BPCFT_Turnstile {
 		$this->settings = BPCFT_Config::get_instance();
 	}
 
-    public static function get_cft_cdn_url() {
+    public static function get_cft_cdn_base_url() {
 	    return 'https://challenges.cloudflare.com/turnstile/v0/api.js';
     }
 
-    public static function get_cft_cdn_url_explicit() {
-        return add_query_arg( array(
-	        'render' => 'explicit',
-            'onload' => apply_filters('bpcft_onload_cft_callback', 'bpcft_onload_cft_cdn')
-        ), self::get_cft_cdn_url());
-    }
+	public static function get_cft_cdn_url() {
+		return add_query_arg( array(
+			'onload' => apply_filters('bpcft_onload_cft_callback', 'bpcft_onload_cft_cdn')
+		), self::get_cft_cdn_base_url());
+	}
 
     public static function get_bpcft_script_url() {
 	    return BPCFT_URL . '/js/bpcft-common-script.js';
@@ -45,16 +44,12 @@ class BPCFT_Turnstile {
 			'strategy'  => 'defer',
 			'in_footer' => true,
 		) );
-		wp_register_script( 'cloudflare-turnstile-script-explicit', self::get_cft_cdn_url_explicit(), array('bpcft-common-script'), null, array(
-			'strategy'  => 'defer',
-			'in_footer' => true,
-		));
 
         // Public style
 		wp_register_style( 'bpcft-styles', self::get_bpcft_style_url() , array(), BPCFT_VERSION );
 	}
 
-    public function get_widget_content( $callback = '', $form_name = '', $unique_id = '', $class = '' ){
+    public function get_widget_content( $callback = '', $form_name = '', $unique_id = '', $class = '', $explicit = false ){
 	    $site_key    = $this->settings->get_value( 'bpcft_site_key' );
 	    $secret_key    = $this->settings->get_value( 'bpcft_secret_key' );
 
@@ -70,10 +65,26 @@ class BPCFT_Turnstile {
 	    $appearance  = isset($widget_settings['appearance']) ? $widget_settings['appearance'] : 'always';
 	    $widget_size = isset($widget_settings['widget_size']) ? $widget_settings['widget_size'] : 'normal';
 
+        $classArray = array(
+            'bp-cf-turnstile-div',
+        );
+
+        if (empty($explicit)){
+            $classArray[] = 'cf-turnstile';
+        }
+
+        if (!empty($class)){
+            foreach (preg_split('/\s+/', $class) as $classItem){
+                $classArray[] = $classItem;
+            }
+        }
+
+        $classArray = apply_filters('bpcft_widget_div_classes', $classArray, $form_name, $unique_id);
+
         ob_start();
 	    ?>
         <div id="cf-turnstile-<?php echo esc_attr( $unique_id ); ?>"
-            class="cf-turnstile bp-cf-turnstile-div <?php echo !empty($class) ? esc_attr( $class ) : '' ?>"
+            class="<?php echo esc_attr( implode(" ", $classArray) ) ?>"
             data-sitekey="<?php echo esc_attr( $site_key ); ?>"
             data-theme="<?php echo esc_attr( $theme ); ?>"
             data-language="<?php echo esc_attr( $language ); ?>"
@@ -96,12 +107,8 @@ class BPCFT_Turnstile {
 	/**
 	 * Renders cloudflare turnstile widget.
 	 */
-    private function render($callback = '', $form_name = '', $unique_id = '', $class = '' , $widget_id = '', $is_explicit = false){
-        if ($is_explicit){
-	        wp_enqueue_script( 'cloudflare-turnstile-script-explicit' );
-        } else {
-	        wp_enqueue_script( 'cloudflare-turnstile-script' );
-        }
+    private function render($callback = '', $form_name = '', $unique_id = '', $class = '' , $widget_id = '', $explicit = false){
+        wp_enqueue_script( 'cloudflare-turnstile-script' );
 	    wp_enqueue_style( 'bpcft-styles' );
 
 	    $callback = sanitize_text_field($callback);
@@ -111,7 +118,7 @@ class BPCFT_Turnstile {
 
 	    do_action( "bpcft_before_cft_widget",  $unique_id );
 
-	    $widget = $this->get_widget_content( $callback, $form_name, $unique_id, $class );
+	    $widget = $this->get_widget_content( $callback, $form_name, $unique_id, $class, $explicit );
 
 	    echo wp_kses_post($widget);
 
