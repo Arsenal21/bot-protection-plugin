@@ -4,8 +4,8 @@ Tags: turnstile, captcha, cloudflare, spam-protection, security
 Donate link: https://www.tipsandtricks-hq.com/development-center
 Requires at least: 6.5
 Requires PHP: 7.4
-Tested up to: 6.9
-Stable tag: 1.1.1
+Tested up to: 7.0
+Stable tag: 1.1.2
 License: GPLv2 or later
 
 A lightweight plugin that protects core WordPress forms and selected third‑party plugins from spam and bot attacks using Cloudflare Turnstile CAPTCHA.
@@ -91,8 +91,9 @@ Absolutely. Toggle off any forms you don't wish to protect.
 5. Checkout form of the Accept Stripe Payments plugin.
 
 == Changelog ==
-= WIP =
-* A bbPress related turnstile issue fixed.
+
+= 1.1.2 =
+* Updated the turnstile integration with bbPress to support the latest version of the plugin.
 
 = 1.1.1 =
 * Added support added for WPEC free and manual checkout.
