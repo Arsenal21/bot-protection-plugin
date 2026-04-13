@@ -65,13 +65,11 @@ class BPCFT_BBpress_Integration {
 		}
 
 		if ($allow_render){
-			wp_enqueue_script('bpcft-script-bbp', BPCFT_URL . '/js/bpcft-script-bbp.js', array('cloudflare-turnstile-script'), BPCFT_VERSION);
 			$unique_id = wp_rand();
-			ob_start();
-			?>
-			<script>bpcft_bbp_register_cft_render( <?php echo esc_js($unique_id)?>, 'login');</script>
-			<?php
-			echo ob_get_clean();
+
+			wp_enqueue_script('bpcft-script-bbp', BPCFT_URL . '/js/bpcft-script-bbp.js', array('cloudflare-turnstile-script'), BPCFT_VERSION);
+			wp_add_inline_script('bpcft-script-bbp', "bpcft_bbp_register_cft_render(".esc_js($unique_id).", 'login')");
+
 			$class = 'bpcft-widget-mt-12 bpcft_widget_bbp_login_form';
 
 			$this->turnstile->render_explicit( 'bpcft_callback', 'bbp-login', $unique_id, $class );
@@ -80,13 +78,11 @@ class BPCFT_BBpress_Integration {
 
 	public function render_bbp_register_form_cft() {
 		if (is_page() && has_shortcode(get_post()->post_content, 'bbp-register')) {
-			wp_enqueue_script('bpcft-script-bbp', BPCFT_URL . '/js/bpcft-script-bbp.js', array('cloudflare-turnstile-script'), BPCFT_VERSION);
 			$unique_id = wp_rand();
-			ob_start();
-			?>
-            <script>bpcft_bbp_register_cft_render( <?php echo esc_js($unique_id)?>, 'register');</script>
-			<?php
-			echo ob_get_clean();
+
+			wp_enqueue_script('bpcft-script-bbp', BPCFT_URL . '/js/bpcft-script-bbp.js', array('cloudflare-turnstile-script'), BPCFT_VERSION);
+			wp_add_inline_script('bpcft-script-bbp', "bpcft_bbp_register_cft_render(".esc_js($unique_id).", 'register')");
+
 			$class = 'bpcft-widget-mt-12 bpcft_widget_bbp_register_form';
 
 			$this->turnstile->render_explicit( 'bpcft_callback', 'bbp-register', $unique_id, $class );
@@ -99,13 +95,11 @@ class BPCFT_BBpress_Integration {
 		}
 
 		if (is_page() && has_shortcode(get_post()->post_content, 'bbp-lost-pass')) {
-			wp_enqueue_script('bpcft-script-bbp', BPCFT_URL . '/js/bpcft-script-bbp.js', array('cloudflare-turnstile-script'), BPCFT_VERSION);
 			$unique_id = wp_rand();
-			ob_start();
-			?>
-            <script>bpcft_bbp_register_cft_render( <?php echo esc_js($unique_id)?>, 'pass-reset');</script>
-			<?php
-			echo ob_get_clean();
+
+            wp_enqueue_script('bpcft-script-bbp', BPCFT_URL . '/js/bpcft-script-bbp.js', array('cloudflare-turnstile-script'), BPCFT_VERSION);
+			wp_add_inline_script('bpcft-script-bbp', "bpcft_bbp_register_cft_render(".esc_js($unique_id).", 'pass-reset')");
+
 			$class = 'bpcft_widget_bbp_pass_reset_form';
 
 			$this->turnstile->render_explicit( 'bpcft_callback', 'bbp-lost-pass', $unique_id, $class);

@@ -91,6 +91,8 @@ Absolutely. Toggle off any forms you don't wish to protect.
 5. Checkout form of the Accept Stripe Payments plugin.
 
 == Changelog ==
+= WIP =
+* A small bbpress related turnstile issue fixed.
 
 = 1.1.2 =
 * Updated the turnstile integration with bbPress to support the latest version of the plugin.
