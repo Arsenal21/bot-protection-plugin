@@ -21,7 +21,14 @@ class BPCFT_ASP_Integration {
 
 			// Hide the captcha disabled warning notice of asp core plugin if cft is enabled for asp.
 			add_filter( 'asp_hide_captcha_disabled_warning_notice_in_admin',  array($this, 'asp_hide_captcha_disabled_warning_notice'));
+
+			// Override captcha type check in plugin's handle_create_pi() and handle_confirm_pi() method.
+			add_filter( 'asp_enabled_captcha_type' ,  array( $this, 'get_enabled_captcha_type' ) );
 		}
+	}
+
+	public function get_enabled_captcha_type() {
+		return 'bpcft-cloudflare-turnstile';
 	}
 
 	public function asp_hide_captcha_disabled_warning_notice() {
